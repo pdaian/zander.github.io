@@ -32,3 +32,13 @@ Makefile*
 #QtCtreator Qml
 *.qmlproject.user
 *.qmlproject.user.*
+
+.ikiwiki
+ikiwiki
+sandbox
+favicon.ico
+recentchanges
+wikiicons
+shortcuts
+sidebar
+templates

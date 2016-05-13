@@ -1,0 +1,4 @@
+[[!sidebar]]
+
+[[!inline pages="page(./posts/*) and !*/Discussion" show="10"
+actions=no atom=no title="tomz-blog"]]

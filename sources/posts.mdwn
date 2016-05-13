@@ -1,0 +1,3 @@
+Posts made on this [[blog|index]].
+
+[[!inline pages="page(./posts/*) and !*/Discussion" archive=yes feedshow=100 quick=yes trail=yes]]

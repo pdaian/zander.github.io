@@ -1,0 +1,14 @@
+Tom Zander
+
+Tom is an software architect, enthusiast and perfectionist.
+
+Tom has decades of software development experience under his belt
+with an equally long time programming in free software communities.
+
+He currently works on [Bitcoin Classic](https://bitcoinclassic.com)
+where he tries to make the world a better place.
+
+
+This blog is created using ikiwiki and the sources can be found on
+[github](https://github.com/zander/zander.github.io/tree/master/sources)
+translations, bugfixes etc are welcome via pull requests or email.

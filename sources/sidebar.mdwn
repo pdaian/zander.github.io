@@ -1,0 +1,6 @@
+[[About TomZ|About]]
+
+[[Archives|Archives/2016]]
+
+[[!pagestats pages="./tags/*" among="./posts/*"]]
+

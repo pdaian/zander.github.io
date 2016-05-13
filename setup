@@ -1,0 +1,68 @@
+# IkiWiki::Setup::Yaml - YAML formatted setup file
+
+wikiname: One may smile, and smile, and be a villain
+srcdir: sources
+destdir: .
+url: http://zander.github.io/
+cgiurl: http://zander.github.io/ikiwiki.cgi
+
+add_plugins:
+- goodstuff
+- calendar
+- sidebar
+
+disable_plugins:
+- otl
+- smiley
+- templatebody # broken;
+- sandbox
+- openid
+- recentchangesdiff
+- pingee
+- trail
+
+html5: 1
+# create output files named page/index.html?
+usedirs: 1
+# use page/index.mdwn source files
+indexpages: 1
+discussion: 0
+# strftime format string to display date
+timeformat: '%c'
+# UTF-8 locale to use
+locale: en_US.UTF-8
+
+timezone: Europe/Central
+wiki_file_chars: -[:alnum:]+/.()?!,%&:\ _
+allow_symlinks_before_srcdir: 0
+rss: 1
+atom: 0
+numbacklinks: 0
+
+# calendar plugin
+# base of the archives hierarchy
+archivebase: archives
+# PageSpec of pages to include in the archives; used by ikiwiki-calendar command
+archive_pagespec: page(posts/*) and !*/Discussion
+
+# aggregate plugin
+# enable aggregation to internal pages?
+aggregateinternal: 1
+# allow aggregation to be triggered via the web?
+#aggregate_webtrigger: 0
+
+# prettydate plugin
+# format to use to display date
+prettydateformat: '%X, %B %o, %Y'
+
+# show sidebar page on all pages?
+global_sidebars: 0
+
+# tag plugin
+# parent page tags are located under
+tagbase: tags
+# autocreate new tag pages?
+#tag_autocreate: 1
+# commit autocreated tag pages
+tag_autocreate_commit: 'autotags'
+

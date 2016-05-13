@@ -1,0 +1,36 @@
+<article class="inlinepage">
+
+<section class="inlineheader">
+<header class="header">
+<TMPL_IF PERMALINK>
+<a href="<TMPL_VAR PERMALINK>"><TMPL_VAR TITLE></a>
+<TMPL_ELSE>
+<a href="<TMPL_VAR PAGEURL>"><TMPL_VAR TITLE></a>
+</TMPL_IF>
+</header>
+</section>
+
+<section class="inlinecontent">
+<TMPL_VAR CONTENT>
+</section>
+
+<footer class="inlinefooter">
+<span class="readMore">
+<TMPL_IF PERMALINK>
+<a href="<TMPL_VAR PERMALINK>">Read full...</a>
+<TMPL_ELSE>
+<a href="<TMPL_VAR PAGEURL>">Read full...</a>
+</TMPL_IF>
+</span>
+<span class="pagedate">Posted <TMPL_VAR CTIME></span>
+
+<TMPL_IF TAGS>
+<nav class="tags"><TMPL_ELSE><span class="tags"></TMPL_IF>
+Tags:
+<TMPL_LOOP TAGS>
+<TMPL_VAR LINK>
+</TMPL_LOOP>
+</nav>
+
+</footer>
+</article>
