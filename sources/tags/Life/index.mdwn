@@ -1,0 +1,4 @@
+[[!meta title="pages tagged Life"]]
+
+[[!inline pages="tagged(Life)" actions="no" archive="yes"
+feedshow=10]]
