@@ -3,8 +3,8 @@
      xmlns:dc="http://purl.org/dc/elements/1.1/"
      xmlns:dcterms="http://purl.org/dc/terms/" >
 <channel>
-<title>tomz-blog</title>
-<link>http://zander.github.io//</link>
+<title>pages tagged Bitcoin</title>
+<link>http://zander.github.io//tags/Bitcoin/</link>
 
 <description>One may smile, and smile, and be a villain</description>
 <generator>ikiwiki</generator>
@@ -30,7 +30,7 @@
 	<description>&lt;p&gt;The story I want to tell today is one of confusion.&lt;/p&gt;
 
 &lt;div class=&quot;float-right&quot;&gt;
-&lt;a href=&quot;http://zander.github.io//./images/escapeTrap.jpg&quot;&gt;&lt;img src=&quot;http://zander.github.io//./posts/With Information Comes Understanding/400x300-escapeTrap.jpg&quot; width=&quot;400&quot; height=&quot;300&quot; class=&quot;img&quot; /&gt;&lt;/a&gt;
+&lt;a href=&quot;http://zander.github.io//tags/Bitcoin/../../images/escapeTrap.jpg&quot;&gt;&lt;img src=&quot;http://zander.github.io//tags/Bitcoin/../../posts/With Information Comes Understanding/400x300-escapeTrap.jpg&quot; width=&quot;400&quot; height=&quot;300&quot; class=&quot;img&quot; /&gt;&lt;/a&gt;
 
 &lt;/br&gt;&lt;i&gt;Confusing translation. By &lt;a href=&quot;https://www.flickr.com/photos/dandownunder/220926841/&quot;&gt;dandownunder&lt;/a&gt;&lt;/i&gt;
 &lt;/div&gt;
@@ -206,51 +206,6 @@ sharing knowledge about many of its darker corners will allow the
 conversation to shift back into a less emotional one.  It is always easier
 to discuss topics when opinions are not confused with facts and facts are
 not fought with opinions.&lt;/p&gt;
-</description>
-
-
-</item>
-<item>
-	<title>First Post</title>
-
-	<guid isPermaLink="false">http://zander.github.io//posts/First_Post/</guid>
-
-	<link>http://zander.github.io//posts/First_Post/</link>
-
-
-
-	<category>Life</category>
-
-
-	<pubDate>Fri, 13 May 2016 19:01:50 +0000</pubDate>
-	<dcterms:modified>2016-05-14T17:31:19Z</dcterms:modified>
-
-
-	<description>&lt;p&gt;Sometimes I feel like talking about things that are close to my heart and
-decided today to finally go and make myself a blog.&lt;/p&gt;
-
-&lt;p&gt;Blogging software has gotten quite mature in the past decade with plenty of
-great ones to chose from. Loads of features, reasonably smooth interface
-and well supported.&lt;/p&gt;
-
-&lt;p&gt;The downside of practically all of them is that they assume a central place
-where the blog lives. Which typically includes a database and a webserver
-that does something like php or other similar processing.&lt;/p&gt;
-
-&lt;p&gt;If you read this blog you may know already that I have a preference for
-systems that are distributed and which avoid single points of failure.
-Doing distributed (as opposed to centralized) work is typically a bit more
-difficult, but there are plenty of great tools to help with this.&lt;/p&gt;
-
-&lt;p&gt;My approach is a wiki where I edit in
-&lt;a href=&quot;http://daringfireball.net/projects/markdown/&quot;&gt;markdown&lt;/a&gt; and I use a wiki
-tool called &lt;a href=&quot;https://ikiwiki.info&quot;&gt;ikiwiki&lt;/a&gt; which generates static html
-pages.  All this happens in Git and the full repo is available on github
-for people to see, copy and if they want they can provide pull requests.
-For instance my Bitcoin posts may be useful to translate at which point
-a pull request is the most obvious way to send change to me.&lt;/p&gt;
-
-&lt;p&gt;Thanks for reading.&lt;/p&gt;
 </description>
 
 
