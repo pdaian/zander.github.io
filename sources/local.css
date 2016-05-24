@@ -1,42 +1,9 @@
-html{
-    font-family:sans-serif;
-    -webkit-text-size-adjust:100%;
-    -ms-text-size-adjust:100%;
-    }
-body{
-    font-family:"Helvetica Neue","Helvetica",Arial,sans-serif;
-    font-size:16px;
-     margin: 0 auto;
-    max-width: 800px;
-    padding:0;
-    color:#646464;
-    background-color:#f7f7f7;
-    }
-h1{
-    font-family:'Ubuntu',sans-serif;
-    font-weight:700;
-    color:#0d579b;
-    font-size:160%;
-    margin-top:0;
-    text-align:center;
-    }
-h2{
-    font-family:'Ubuntu',sans-serif;
-    font-weight:700;
-    color:#383838;
-    font-size:130%;
-    text-align:left;
-    }
-h3{
-    color:#383838;
-    font-size:110%;
-    text-align:left;
-    }
-h4{
-    font-size:145%;
-    color:#7b7c7c;
-    margin:20px auto 45px auto;
-    }
+html { font-family:sans-serif; -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; }
+body { font-family:"Helvetica Neue","Helvetica",Arial,sans-serif; font-size:16px; margin: 0 auto; max-width: 800px; padding:0; color:#646464; background-color:#f7f7f7; }
+h1 { font-family:'Ubuntu',sans-serif; font-weight:700; color:#0d579b; font-size:160%; margin-top:0; text-align:center; }
+h2 { font-family:'Ubuntu',sans-serif; font-weight:700; color:#383838; font-size:130%; }
+h3 { color:#383838; font-size:120%; margin:20px auto 45px auto;  }
+h4 { font-size:110%; color:#7b7c7c;}
 a:link,a:visited,a:active,a.link-js{
     color:#FF9834;
     text-decoration:none;
@@ -79,9 +46,10 @@ code{padding:2px 4px;background-color:#f5f5f5;font-size:60%;white-space:nowrap;b
     column-gap: 30px;
     column-rule: 1px solid #D3D3D3;
 }
-.inlinepage { border: none }
-.pagecloud { border: none; width: 90%}
+.inlinepage{border: none}
+.pagecloud{border: none; width: 90%}
 
-#pageinfo { border-top: 1px solid #C0C0C0; }
-.pagedate { font-size:75%; text-align:right;margin-right:40px; color: #787777; }
-.copyrightinfo { font-size: 10px; margin-top: 1em;}
+#pageinfo{border-top: 1px solid #C0C0C0;}
+.pagedate{font-size:75%; text-align:right;margin-right:40px; color: #787777;}
+.copyrightinfo{font-size: 10px; margin-top: 1em;}
+.float-right{display:block;float:right;text-size:80%;text-align:center;}

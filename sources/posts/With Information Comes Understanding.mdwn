@@ -1,0 +1,182 @@
+The story I want to tell today is one of confusion.
+
+[[!tag Bitcoin]]
+[[!tag Community]]
+
+<div class="float-right">
+[[!img images/escapeTrap.jpg size=400x300]]
+
+</br><i>Confusing translation. By <a href="https://www.flickr.com/photos/dandownunder/220926841/">dandownunder</a></i>
+</div>
+
+I have been a software developer for various decades and in that time the
+way that I start a new job or a new task is similar.  It is one of
+learning. When I started in a company that creates medical hardware I ended
+up spending quite some time reading through books meant for nurses. When I
+started in a company that makes a stock-trading platform I had to learn
+about the financial industry.  The knowledge of being a software developer
+is similar to knowing English or Russian as a novel writer.  It doesn't
+mean you have anything interesting to write.  You need to learn.
+
+This is why I love my profession of software developer. I get to do
+something completely different on a regular basis.
+
+Learning about Bitcoin was surprising difficult. I've been learning for
+almost 4 years and I am certain I will continue for many more.  
+I would have to say that from all the industries that I studied, learning
+about Bitcoin details has been the hardest.
+
+I have been talking to quite a lot of people over these years, from forums
+like reddit and 8btc to chat, email and VOIP talking to the experts.  I
+found that I was not alone with my difficulty of discovering pertinent
+details about Bitcoin.
+
+The following scenario would happen on a regular basis: A couple of random
+people on the internet are in a discussion about some detail. For instance
+they talk about the claim that miners would never willingly break the
+Bitcoin consensus rules.  
+After some time an expert comes in and resolves the conflict by stating
+some fact.  In our example, he could say that after the 2012 halving there
+were various miners for some hours that continued to mine blocks with 50BTC
+reward.
+
+I've always wanted to be so wise and learned that I knew all those facts in
+the hope that I could become an expert.
+
+Until now.
+
+In Bitcoin there are currently a very small number of experts. This
+generates a handful of problems. The most obvious problem is the one I
+outlined above, it makes it hard for new people to enter Bitcoin and become
+productive. New people need known experts to help them. Many other problems
+are more subtle.
+
+Problems we face today:
+
+* With the experts having more information than the rest of us,
+  those experts become authority figures. We need their Ok because we will
+  likely do things wrong otherwise.
+
+* Bitcoin is a field that spans Economy, Finance, the history of Money,
+  Psychology, various fields in software architecture (databases,
+  peer-2-peer networking, cryptography) and probably more. It is impossible
+  for any one person to be an expert in all of those.  Yet, when we talk to
+  our Bitcoin experts I never once heard any of them say that they would
+  rather defer to someone more knowledgeable than themselves.
+
+* Discussions about Bitcoin can be about opinions or about well researched
+  facts.  In the current world it is impossible to differentiate fact from
+  opinion because we can't independently validate those facts.
+
+
+*I have become convinced that the first big step we need to make to create
+a more healthy Bitcoin ecosystem is to make access to currently well hidden
+facts completely open for anyone to access and contribute to.*
+
+Wikimedia [writes](https://wikimediafoundation.org/wiki/Vision);
+> Imagine a world in which every single human being can freely share in the
+> sum of all knowledge.
+
+I think that goal is inspiration that Bitcoin could use very well.  I would
+like to see a Free Wikipedia for Bitcoin technology.
+
+There are quite a number websites today that have a small amount of
+information, typically on one topic for one specific group of users. For
+instance people new to Bitcoin. But nothing that combines those ideas and
+facts.
+
+A special mention should go to the bitcoin.it website which has a lot of
+in-depth information.  Unfortunately most of it is hopelessly outdated and
+looking through the discussions it becomes obvious this is because it has
+been strictly guarded by a small number of people that would remove without
+discussion any opinions not already known to them. This kind of behavior
+is the death to cooperation.
+
+The secondary goal, then, should be to create documentation that can not
+be censored or controlled.
+
+### BitcoinWiki.git
+
+#### Part of the solution; git.
+
+Git is a tool used for many years by enthusiasts and professionals alike to
+create a distributed
+[workflow](http://nvie.com/posts/a-successful-git-branching-model/).
+Anyone can create changes and offer them to the world to accept or reject
+based on merit only.  Git allows anyone to start contributing without
+permission. It also removes the central ownership. No longer is it needed
+to convince one group of the worth of your changes, there may be various
+groups each creating what they think is the best version.
+
+#### Lowering the threshold of entry.
+
+While git allows the actual required working together, it is just a basic
+layer. Many end users don't want to use git, and that should be perfectly
+Ok.  
+Much like Wikipedia allows a user to do everything from a web browser, we
+need a way to do the same in order to not scare off people that could
+really contribute but don't have the technical knowledge to install and use
+tools on their machine.
+
+In my search for a solution I found a tool called
+[ikiwiki](http://ikiwiki.info/). This is a tool that combines the concept
+of a wiki and the concept of distributing control using git.
+What one person changes on the website can be merged with what another
+person makes at another time. Even when those people use a different
+website or a different team to do the work in.
+
+### Starting the revolution.
+
+To start somewhere I present a website that has all the content (including
+all revisions back until its start in 2010) copied from what has so far
+been the main Bitcoin wiki. I put them online for now at
+[bitcoinwiki.github.io](http://bitcoinwiki.github.io). This is a simple
+website and editing is currently disabled.
+The wiki database is converted to be
+[markdown](https://en.wikipedia.org/wiki/Markdown), which is a more modern
+alternative than the old wiki used. This is also the native format that
+ikiwiki uses. Don't worry, you likely are not going to have problems with
+it as you may already know it quite well. Markdown is used at many places
+like
+[github](https://help.github.com/articles/getting-started-with-writing-and-formatting-on-github/)
+and Reddit.
+
+
+The [bitcoinwiki.github.io](http://bitcoinwiki.github.io) is the current
+version, the complete history is found in git on github
+[here](https://github.com/BitcoinWiki/wiki-en)
+
+But even with the full historical content, I do believe we need some heros
+to step up and do some major work. Many pages are hopelessly outdated and
+there are quite a lot of flaws in the actual content.
+
+Next to that, many pages use rendering-templates that have not been ported
+over to the git repository. I would suspect that most of them are in fact
+irrelevant. Some closer inspection is needed.
+
+#### Be part of the solution, please help
+
+In my own humble opinion the goal of the old wiki is wrong, it highlighted
+all companies in the space which included all gambling sites and places
+selling hardware. This is fast-changing information and frankly serves
+nobody but the companies.  Likewise, pages about people feel out of place.
+It so quickly becomes about being better than anyone else. I don't have a
+wikipedia page and I think I'm better off without it.
+
+Actual technical information, backgrounds, overviews and historical facts
+would be useful to write down. In my opinion it should be a source of
+information where fresh content is shared and research published.
+
+We need people to go in and slice up the bad stuff, move pages to better
+locations and move out useless content. I have already spent too much time,
+time I could spend on writing better Bitcoin code. So I hope others can
+pick up the baton and fork my the bitcoinwiki project on github and work on
+making it ready for more and more people to come in add their work and
+content.
+
+Following the title of this blogposts, sharing how Bitcoin works and
+sharing knowledge about many of its darker corners will allow the
+conversation to shift back into a less emotional one.  It is always easier
+to discuss topics when opinions are not confused with facts and facts are
+not fought with opinions.
+
