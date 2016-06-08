@@ -130,7 +130,7 @@ website or a different team to do the work in.
 To start somewhere I present a website that has all the content (including
 all revisions back until its start in 2010) copied from what has so far
 been the main Bitcoin wiki. I put them online for now at
-[bitcoinwiki.github.io](http://bitcoinwiki.github.io). This is a simple
+[bitcoinwiki.github.io](http://bitcoinfactswiki.github.io). This is a simple
 website and editing is currently disabled.
 The wiki database is converted to be
 [markdown](https://en.wikipedia.org/wiki/Markdown), which is a more modern
@@ -142,9 +142,9 @@ like
 and Reddit.
 
 
-The [bitcoinwiki.github.io](http://bitcoinwiki.github.io) is the current
+The [bitcoinwiki.github.io](http://BitcoinFactsWiki.github.io) is the current
 version, the complete history is found in git on github
-[here](https://github.com/BitcoinWiki/wiki-en)
+[here](https://github.com/BitcoinFactsWiki/english)
 
 But even with the full historical content, I do believe we need some heros
 to step up and do some major work. Many pages are hopelessly outdated and
