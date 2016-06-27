@@ -1,0 +1,4 @@
+[[!meta title="pages tagged Mining"]]
+
+[[!inline pages="tagged(Mining)" actions="no" archive="yes"
+feedshow=10]]

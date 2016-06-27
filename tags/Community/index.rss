@@ -8,7 +8,7 @@
 
 <description>One may smile, and smile, and be a villain</description>
 <generator>ikiwiki</generator>
-<pubDate>Tue, 24 May 2016 18:35:02 +0000</pubDate>
+<pubDate>Mon, 27 Jun 2016 10:45:43 +0000</pubDate>
 <item>
 	<title>With Information Comes Understanding</title>
 
@@ -24,7 +24,7 @@
 
 
 	<pubDate>Tue, 24 May 2016 18:35:02 +0000</pubDate>
-	<dcterms:modified>2016-05-24T18:35:02Z</dcterms:modified>
+	<dcterms:modified>2016-06-27T10:45:43Z</dcterms:modified>
 
 
 	<description>&lt;p&gt;The story I want to tell today is one of confusion.&lt;/p&gt;
@@ -158,7 +158,7 @@ website or a different team to do the work in.&lt;/p&gt;
 &lt;p&gt;To start somewhere I present a website that has all the content (including
 all revisions back until its start in 2010) copied from what has so far
 been the main Bitcoin wiki. I put them online for now at
-&lt;a href=&quot;http://bitcoinwiki.github.io&quot;&gt;bitcoinwiki.github.io&lt;/a&gt;. This is a simple
+&lt;a href=&quot;http://bitcoinfactswiki.github.io&quot;&gt;bitcoinwiki.github.io&lt;/a&gt;. This is a simple
 website and editing is currently disabled.
 The wiki database is converted to be
 &lt;a href=&quot;https://en.wikipedia.org/wiki/Markdown&quot;&gt;markdown&lt;/a&gt;, which is a more modern
@@ -169,9 +169,9 @@ like
 &lt;a href=&quot;https://help.github.com/articles/getting-started-with-writing-and-formatting-on-github/&quot;&gt;github&lt;/a&gt;
 and Reddit.&lt;/p&gt;
 
-&lt;p&gt;The &lt;a href=&quot;http://bitcoinwiki.github.io&quot;&gt;bitcoinwiki.github.io&lt;/a&gt; is the current
+&lt;p&gt;The &lt;a href=&quot;http://BitcoinFactsWiki.github.io&quot;&gt;bitcoinwiki.github.io&lt;/a&gt; is the current
 version, the complete history is found in git on github
-&lt;a href=&quot;https://github.com/BitcoinWiki/wiki-en&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;a href=&quot;https://github.com/BitcoinFactsWiki/english&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;But even with the full historical content, I do believe we need some heros
 to step up and do some major work. Many pages are hopelessly outdated and

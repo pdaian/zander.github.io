@@ -8,7 +8,128 @@
 
 <description>One may smile, and smile, and be a villain</description>
 <generator>ikiwiki</generator>
-<pubDate>Tue, 24 May 2016 18:35:02 +0000</pubDate>
+<pubDate>Mon, 27 Jun 2016 11:31:01 +0000</pubDate>
+<item>
+	<title>Smaller is Stronger</title>
+
+	<guid isPermaLink="false">http://zander.github.io//posts/Smaller%20is%20Stronger/</guid>
+
+	<link>http://zander.github.io//posts/Smaller%20is%20Stronger/</link>
+
+
+
+	<category>Bitcoin</category>
+
+	<category>Mining</category>
+
+
+	<pubDate>Mon, 27 Jun 2016 11:27:03 +0000</pubDate>
+	<dcterms:modified>2016-06-27T11:31:01Z</dcterms:modified>
+
+
+	<description>&lt;h3&gt;Don&#39;t leave your money on the street.&lt;/h3&gt;
+
+&lt;p&gt;Bitcoind is labelled as the backend of the network. When I explain this to
+friends I explain it like its the router that you have stuffed behind the
+sofa or if you are more professional, in a server room, sometimes not even
+in the same country you are in.
+Either way, it is something needed for everything else to work. But mostly
+ignored.&lt;/p&gt;
+
+&lt;p&gt;This is how I imagine the users of Bitcoin Classic to use the software, and
+it is the way I think it should be. They use it as something that just
+works to make it possible for them to keep their business or infrastructure
+running.&lt;/p&gt;
+
+&lt;p&gt;One such group of Bitcoin Classic users are the miners, they run
+bitcoin-classic to have an accurate view of the state of the network.  The
+new transactions are collected in Bitcoin Classic and it creates new block
+templates for them. In short; Bitcoin Classic helps miners connect to the
+network.&lt;/p&gt;
+
+&lt;p&gt;What is totally out-of-character with the design that Bitcoin has had for
+years is that, when the miner actually mines the block that the
+block-reward is &quot;stored&quot; in the Bitcoin node.&lt;/p&gt;
+
+&lt;p&gt;This means that your Bitcoin Classic suddenly isn&#39;t just a piece of network
+infrastructure anymore.  It holds thousands of dollars worth of value. And
+because of that you&#39;d have to protect it.  Which is not always compatible
+with the way that you want to use a piece of network infrastructure.&lt;/p&gt;
+
+&lt;p&gt;See, the original Bitcoin node that Satoshi made was a reference client and
+it included the ability to relay messages, it has a wallet and it knows how
+to mine blocks.&lt;/p&gt;
+
+&lt;p&gt;Over the years we stopped using the mining software because other software
+and hardware solutions have appeared that were much better.&lt;/p&gt;
+
+&lt;p&gt;We have also seen many better wallets which are much more used than a full
+node based wallet.&lt;/p&gt;
+
+&lt;p&gt;All of those still use the bitcoin full node software, like Bitcoin
+Classic, as a platform to build on.  They communicate via various channels
+with the Bitcoin software which in turn connects them to the Bitcoin
+Network.&lt;/p&gt;
+
+&lt;p&gt;It is in my opinion time to separate Bitcoin Mining from the Bitcoin
+Wallet. We should no longer force Miners to use the Bitcoin wallet that is
+shipped in Bitcoin Classic. We should no longer force the horrible security
+practice of storing bitcoin private keys (and the money they represent) on
+a piece of equipment that really is meant to be like a router or a hub
+connecting your business to the Bitcoin network.&lt;/p&gt;
+
+&lt;h3&gt;Stop demanding a wallet in a mining node&lt;/h3&gt;
+
+&lt;p&gt;In Bitcoin Classic&#39;s development branch we have changed the
+system to allow mining on a node that does not have a wallet compiled in.&lt;/p&gt;
+
+&lt;p&gt;I introduced a new RPC command called &lt;code&gt;createaddress&lt;/code&gt;, which returns
+something like this;&lt;/p&gt;
+
+&lt;pre&gt;
+{
+  &quot;address&quot;: &quot;1E852VpivAYpZcwGo5bNB9U4twjnJfrL2c&quot;,
+  &quot;pubkey&quot;:
+&quot;0303a60a215af3ea3240705db3201b5161445e1bdbd1e4e942284cfd9e9ede0ea1&quot;,
+  &quot;private&quot;: &quot;KyjwYTJrhAS14fV7fP16Z9bhiudpPcSTT5HpPgpoampS57zgT59w&quot;
+}
+&lt;/pre&gt;
+
+
+&lt;p&gt;The private key is the one piece of information needed to later spent the
+money that would be stored on the address. To benefit from this change the
+miner would store this private key in a secure location.&lt;/p&gt;
+
+&lt;p&gt;The pubkey and the address are not needed to be stored securely, they
+can be used in future mined blocks.  When a block is mined with the pubkey
+set, the money can later be redeemed using the safely stored private key.&lt;/p&gt;
+
+&lt;p&gt;A second new RPC command is &lt;code&gt;setcoinbase&lt;/code&gt;.  When called with the &#39;pubkey&#39;
+field from above this will cause any following calls to
+&lt;code&gt;getblocktemplate&lt;/code&gt; to be generated so when it is mined all the fees and
+block reward will go to the address.&lt;/p&gt;
+
+&lt;p&gt;People can use the output of &lt;code&gt;createaddress&lt;/code&gt;, &lt;strong&gt;or if they don&#39;t like
+change, just use the existing &lt;code&gt;getnewaddress&lt;/code&gt; and &lt;code&gt;validateaddress&lt;/code&gt; rpc
+calls to create a coinbase that will end up in your bitcoind wallet&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Additionally the command-line option &lt;code&gt;--gencoinbase&lt;/code&gt; is added to bitcoind
+which has the same effect as the setcoinbase RPC command and that may be
+useful to use until the mining software is upgraded to use these new RPC
+commands. Because calling getblocktemplate without setting the coinbase
+will now cause an error to be returned.&lt;/p&gt;
+
+&lt;p&gt;This change is still only available on the development branch, and has not
+been scheduled for release just yet.  So &lt;strong&gt;there is still time to give
+feedback on what you like or dislike or would like to change&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;In my opinion these changes will have the positive effect that miners can
+now feel much more safe when their bitcoind connects them to the bitcoin
+network, without needing all the security that a full wallet should have.&lt;/p&gt;
+</description>
+
+
+</item>
 <item>
 	<title>With Information Comes Understanding</title>
 
@@ -24,7 +145,7 @@
 
 
 	<pubDate>Tue, 24 May 2016 18:35:02 +0000</pubDate>
-	<dcterms:modified>2016-05-24T18:35:02Z</dcterms:modified>
+	<dcterms:modified>2016-06-27T10:45:43Z</dcterms:modified>
 
 
 	<description>&lt;p&gt;The story I want to tell today is one of confusion.&lt;/p&gt;
@@ -158,7 +279,7 @@ website or a different team to do the work in.&lt;/p&gt;
 &lt;p&gt;To start somewhere I present a website that has all the content (including
 all revisions back until its start in 2010) copied from what has so far
 been the main Bitcoin wiki. I put them online for now at
-&lt;a href=&quot;http://bitcoinwiki.github.io&quot;&gt;bitcoinwiki.github.io&lt;/a&gt;. This is a simple
+&lt;a href=&quot;http://bitcoinfactswiki.github.io&quot;&gt;bitcoinwiki.github.io&lt;/a&gt;. This is a simple
 website and editing is currently disabled.
 The wiki database is converted to be
 &lt;a href=&quot;https://en.wikipedia.org/wiki/Markdown&quot;&gt;markdown&lt;/a&gt;, which is a more modern
@@ -169,9 +290,9 @@ like
 &lt;a href=&quot;https://help.github.com/articles/getting-started-with-writing-and-formatting-on-github/&quot;&gt;github&lt;/a&gt;
 and Reddit.&lt;/p&gt;
 
-&lt;p&gt;The &lt;a href=&quot;http://bitcoinwiki.github.io&quot;&gt;bitcoinwiki.github.io&lt;/a&gt; is the current
+&lt;p&gt;The &lt;a href=&quot;http://BitcoinFactsWiki.github.io&quot;&gt;bitcoinwiki.github.io&lt;/a&gt; is the current
 version, the complete history is found in git on github
-&lt;a href=&quot;https://github.com/BitcoinWiki/wiki-en&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;a href=&quot;https://github.com/BitcoinFactsWiki/english&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;But even with the full historical content, I do believe we need some heros
 to step up and do some major work. Many pages are hopelessly outdated and
