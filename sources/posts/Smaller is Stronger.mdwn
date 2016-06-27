@@ -1,0 +1,102 @@
+### Don't leave your money on the street.
+
+Bitcoind is labelled as the backend of the network. When I explain this to
+friends I explain it like its the router that you have stuffed behind the
+sofa or if you are more professional, in a server room, sometimes not even
+in the same country you are in.
+Either way, it is something needed for everything else to work. But mostly
+ignored.
+
+This is how I imagine the users of Bitcoin Classic to use the software, and
+it is the way I think it should be. They use it as something that just
+works to make it possible for them to keep their business or infrastructure
+running.
+
+One such group of Bitcoin Classic users are the miners, they run
+bitcoin-classic to have an accurate view of the state of the network.  The
+new transactions are collected in Bitcoin Classic and it creates new block
+templates for them. In short; Bitcoin Classic helps miners connect to the
+network.
+
+What is totally out-of-character with the design that Bitcoin has had for
+years is that, when the miner actually mines the block that the
+block-reward is "stored" in the Bitcoin node.
+
+This means that your Bitcoin Classic suddenly isn't just a piece of network
+infrastructure anymore.  It holds thousands of dollars worth of value. And
+because of that you'd have to protect it.  Which is not always compatible
+with the way that you want to use a piece of network infrastructure.
+
+See, the original Bitcoin node that Satoshi made was a reference client and
+it included the ability to relay messages, it has a wallet and it knows how
+to mine blocks.
+
+Over the years we stopped using the mining software because other software
+and hardware solutions have appeared that were much better.
+
+We have also seen many better wallets which are much more used than a full
+node based wallet.
+
+All of those still use the bitcoin full node software, like Bitcoin
+Classic, as a platform to build on.  They communicate via various channels
+with the Bitcoin software which in turn connects them to the Bitcoin
+Network.
+
+It is in my opinion time to separate Bitcoin Mining from the Bitcoin
+Wallet. We should no longer force Miners to use the Bitcoin wallet that is
+shipped in Bitcoin Classic. We should no longer force the horrible security
+practice of storing bitcoin private keys (and the money they represent) on
+a piece of equipment that really is meant to be like a router or a hub
+connecting your business to the Bitcoin network.
+
+### Stop demanding a wallet in a mining node
+
+In Bitcoin Classic's development branch we have changed the
+system to allow mining on a node that does not have a wallet compiled in.
+
+I introduced a new RPC command called ``createaddress``, which returns
+something like this;
+
+<pre>
+{
+  "address": "1E852VpivAYpZcwGo5bNB9U4twjnJfrL2c",
+  "pubkey":
+"0303a60a215af3ea3240705db3201b5161445e1bdbd1e4e942284cfd9e9ede0ea1",
+  "private": "KyjwYTJrhAS14fV7fP16Z9bhiudpPcSTT5HpPgpoampS57zgT59w"
+}
+</pre>
+
+The private key is the one piece of information needed to later spent the
+money that would be stored on the address. To benefit from this change the
+miner would store this private key in a secure location.
+
+The pubkey and the address are not needed to be stored securely, they
+can be used in future mined blocks.  When a block is mined with the pubkey
+set, the money can later be redeemed using the safely stored private key.
+
+A second new RPC command is ``setcoinbase``.  When called with the 'pubkey'
+field from above this will cause any following calls to
+``getblocktemplate`` to be generated so when it is mined all the fees and
+block reward will go to the address.
+
+People can use the output of ``createaddress``, **or if they don't like
+change, just use the existing ``getnewaddress`` and ``validateaddress`` rpc
+calls to create a coinbase that will end up in your bitcoind wallet**.
+
+Additionally the command-line option ``--gencoinbase`` is added to bitcoind
+which has the same effect as the setcoinbase RPC command and that may be
+useful to use until the mining software is upgraded to use these new RPC
+commands. Because calling getblocktemplate without setting the coinbase
+will now cause an error to be returned.
+
+
+This change is still only available on the development branch, and has not
+been scheduled for release just yet.  So **there is still time to give
+feedback on what you like or dislike or would like to change**.
+
+In my opinion these changes will have the positive effect that miners can
+now feel much more safe when their bitcoind connects them to the bitcoin
+network, without needing all the security that a full wallet should have.
+
+[[!tag Bitcoin]]
+[[!tag Mining]]
