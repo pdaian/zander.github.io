@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+<meta charset="utf-8" />
+<title>ClassicQuality</title>
+
+
+<link rel="stylesheet" href="../../style.css" type="text/css" />
+
+<link rel="stylesheet" href="../../local.css" type="text/css" />
+
+
+
+
+<link rel="alternate" type="application/x-wiki" title="Edit this page" href="/ikiwiki.cgi?page=posts%2FClassicQuality&amp;do=edit" />
+
+
+
+
+
+
+
+</head>
+<body>
+
+<article class="page">
+
+<section class="pageheader">
+<header class="header">
+<span>
+<span class="parentlinks">
+
+<a href="../../">One may smile, and smile, and be a villain</a>/ 
+
+<a href="../">posts</a>/ 
+
+</span>
+<span class="title">
+ClassicQuality
+
+</span>
+</span>
+
+
+
+</header>
+
+
+<nav class="actions">
+<ul>
+
+<li><a href="/ikiwiki.cgi?page=posts%2FClassicQuality&amp;do=edit" rel="nofollow">Edit</a></li>
+
+
+
+
+
+<li><a href="/ikiwiki.cgi?do=prefs">Preferences</a></li>
+
+
+
+
+
+</ul>
+</nav>
+
+
+
+
+
+
+
+
+</section>
+
+
+
+
+
+<div id="pagebody">
+
+<section id="content" role="main">
+<p>When I first started working with Bitcoin, a couple of years ago, I tried
+to find out how to contribute code and to understand the Quality Assurance
+policies they held.</p>
+
+<p>At this time I naturally was talking to people from the Bitcoin Core group,
+and the answers I got were quite confusing to me.</p>
+
+<p>After having worked in the software industry for 20 years I had become very
+reliant on good quality assurance policies. As well as good usage of
+distributed source management control. Turns out that Core didn't really
+have any of that in place.</p>
+
+<p>When I was asked to work with Gavin on Bitcoin Classic I first started to
+work on quality assurance policies and practices.  And I'm happy to say that
+we have reached at least industry standard, if not a little above. But I
+haste to say that there is still room for improvement.</p>
+
+<h2>Git workflow</h2>
+
+<p>The first thing that I changed is that we now have a proper git workflow.
+This means that developers fix bugs on the stable branch and we use git
+merges to make those bugfixes go up to the development branch.
+You will find this process in any git book, so I wont' spent too much time
+on this.  The important part is that merges between branches is done often
+and that way we can't loose work or introduce bugs by doing it manually.
+See also our <a href="https://github.com/bitcoinclassic/bitcoinclassic/blob/develop/CONTRIBUTING.md">contributing
+document</a>.</p>
+
+<h2>Release process</h2>
+
+<p>The second part that changed is the release process itself.
+Based on the fact that we now have a stable branch that is always
+releasable the release process will become easier.  The aim is to follow
+the good old open source concept of "Release early, release often".</p>
+
+<p>One of the biggest changes is that we now follow the <a href="http://semver.org/">Semantic
+Versioning</a> concept which is almost universal for open
+source software as well as for many closed source products.</p>
+
+<p>Let me quote the core concept;</p>
+
+<blockquote><p>Given a version number MAJOR.MINOR.PATCH, increment the:</p>
+
+<ol>
+<li>MAJOR version when you make incompatible API changes,</li>
+<li>MINOR version when you add functionality in a backwards-compatible
+manner, and</li>
+<li>PATCH version when you make backwards-compatible bug fixes.</li>
+</ol>
+</blockquote>
+
+<p>Additionally I wrote this in the release tag of v1.1.0</p>
+
+<p>At first we wanted to follow the Core releases, but they have different
+core-values and push out hundreds of lines of new code in a bugfix release
+which feels dirty to have to inherit.  The result of that is that the CSV
+soft fork code feature release has received a bigger version bump.  And
+when that disconnect between Core and Classic versions it also stopped
+making sense to stay close to versioning of Core.<br />
+It was time to review the numbering scheme altogether.</p>
+
+<p>When I talked about the "less than 1.0" versioning over beers with
+<a href="https://en.wikipedia.org/wiki/Eric%5FS%2E%5FRaymond">Eric S. Raymond</a> (author of <a href="https://en.wikipedia.org/wiki/The%5FCathedral%5Fand%5Fthe%5FBazaar">The Cathedral and the Bazaar</a>) he explained it like this:<br />
+The idea was that when the app reaches the set of features required
+for the user with the lowest demands to use it for its intended usage,
+that's when you call it 1.0.</p>
+
+<p>Bottom line, Bitcoin is certainly far past its 1.0 release. We will follow
+the Semantic Versioning from now on.</p>
+
+<h2>Continues Integration building</h2>
+
+<p>What I was really missing was a proper <a href="https://en.wikipedia.org/wiki/Continuous%5Fintegration">Continuous integration</a> (CI) system. Naturally, there is the freely
+available Travis.  But thats been a frustrating experience and really not
+useful as a build server. Apart from the fact that Travis is really slow
+(taking an hour or more), some and 60% of the time when it says there is a
+failure, it actually isn't a problem in our code, its really not useful to
+rely on.</p>
+
+<p>I got a dedicated server in a secure environment and installed Teamcity on
+it. Teamcity is one of the most used CI software systems out there and
+quite useful for our purposes.</p>
+
+<p><a href="../../images/teamcity.png"><img src="./500x500-teamcity.png" width="500" height="463" class="float-right" /></a></p>
+
+<p>It does a couple of things;</p>
+
+<ol>
+<li>every single time a change is made in Git (in all branches) it builds
+this for all platforms and runs unit tests at least for the Linux ones.
+Notice that it does the building in a fraction of the time that Travis
+took. Typically a build completes in less than 15 min.</li>
+<li>It builds both using the 'gitian' concept of reproducible (or static)
+build environment for all platforms as well as using the native Linux way
+of using the platform dynamic-libraries (dlls). This makes sure we know it
+works on more than one version of boost and all the other supporting
+libraries.</li>
+<li>It builds nightly builds of the development branch allowing people to
+test these that don't want to compile.</li>
+<li>It pushes the build to remote builders (like Ubuntu's launchpad) to have
+an easy way to distribute nightly builds or maybe even future releases with
+minimum effort.</li>
+<li>It tests the Debian contrib to actually build properly.</li>
+</ol>
+
+
+<p>As I mentioned, the server is in a secure location. What that means is that
+it is not connected to the internet and physically protected to make sure
+we can trust the output of that server.  When we ship sources anyone can
+check quickly if they are unaltered from the tags in git. But with binaries
+(evil) changes can be much harder to detect.  So I refuse to gpg-sign any
+releases unless I know they actually came from the exact sources that are
+in git, visible for all.</p>
+
+<h2>Ongoing work</h2>
+
+<p>There is plenty of issues that could use improvements.  It turns out that
+the original developers don't really like writing unit tests and the code
+lacks any organization to make unit testing practical or easy.  With some
+small changes such efforts could be made much easier.</p>
+
+<p>We also have exactly one executable that runs all the test. Which is
+against the unit testing practices of having small units because one
+failure in one test can cause a lot of tests afterwards to start failing
+too, mostly because the memory states were not cleaned up properly after a
+failure.</p>
+
+<p>Ideally we have a lot of small test executables which can be run by a
+simple runner. With the added benefit that you can run various in parallel
+(one per cpu-core) which makes the whole complete much faster as well.</p>
+
+<p>We currently have a benchmark framework, but nothing in there. The idea of
+a benchmark is that code which is time critical can be tested in there and
+the output can be printed and plotted over a long time (months) to see that
+such time critical code doesn't get slower by unintended changes from
+release to release.<br />
+I find it hard to believe that Bitcoin has no time critical code, as such
+we should be able to find value to locate, test and keep code from getting
+slower.</p>
+
+<p>Better integration Linux distro's. Bitcoin was made to be shipped as a big
+executable with all the libraries inside. The thinking was that this saves
+the application from misbehaving when another library changes behavior.
+While the idea seems logical, it shows a lack of experience because the
+open source community has been solving this problem for 30 years and it
+does so quite successfully.  Going against that only introduces a different
+set of problems.  For instance when the libc DNS exploit was made public
+Bitcoin dodged a bullet because libc is one of the very few libraries we
+don't actually compile in. But imagine any of the libraries we include has
+such a similar vulnerability and the only way to solve that is to re-build
+Bitcoin and get everyone to manually update.   The Linux alternative of
+just running an <code>apt-get upgrade</code> or similar is vastly more secure and
+better supported.</p>
+
+<p>As mentioned in the CI section, I already added support for Classic in
+launchpad. This may be something to expand upon and support more Linux
+distros in a similar fashion.</p>
+
+<h2>Conclusion</h2>
+
+<p>Bitcoin Classic has a strong Quality Assurance policy, adopts long time
+industry standard practices and sheds unsafe self-invented ones from
+upstream.</p>
+
+<p>We also take all the best practices from Open Source and Free Software to
+make releases often for those that want to test the latest and contribute
+by reporting issues, or simply by being part of the network.</p>
+
+<p>The future is bright!</p>
+
+</section>
+
+
+
+
+
+
+
+</div>
+
+<footer id="footer" class="pagefooter" role="contentinfo">
+
+<nav id="pageinfo">
+
+
+
+
+<nav class="tags">
+Tags:
+
+<a href="../../tags/Bitcoin/" rel="tag">Bitcoin</a>
+
+</nav>
+
+
+<div class="copyrightinfo">
+Copyright &copy; 2016 Tom Zander &lt;tomz@freedommail.ch&gt;</br>
+Content licensed under the <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC by-sa</a>
+</div>
+
+<div class="pagedate">
+Last edited <time datetime="2016-06-30T10:56:22Z">Thu 30 Jun 2016 10:56:22 AM Europe</time>
+</div>
+
+</nav>
+
+
+</footer>
+</article>
+
+</body>
+</html>

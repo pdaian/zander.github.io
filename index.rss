@@ -8,7 +8,196 @@
 
 <description>One may smile, and smile, and be a villain</description>
 <generator>ikiwiki</generator>
-<pubDate>Mon, 27 Jun 2016 11:31:01 +0000</pubDate>
+<pubDate>Thu, 30 Jun 2016 10:56:22 +0000</pubDate>
+<item>
+	<title>ClassicQuality</title>
+
+	<guid isPermaLink="false">http://zander.github.io//posts/ClassicQuality/</guid>
+
+	<link>http://zander.github.io//posts/ClassicQuality/</link>
+
+
+
+	<category>Bitcoin</category>
+
+
+	<pubDate>Thu, 30 Jun 2016 10:33:56 +0000</pubDate>
+	<dcterms:modified>2016-06-30T10:56:22Z</dcterms:modified>
+
+
+	<description>&lt;p&gt;When I first started working with Bitcoin, a couple of years ago, I tried
+to find out how to contribute code and to understand the Quality Assurance
+policies they held.&lt;/p&gt;
+
+&lt;p&gt;At this time I naturally was talking to people from the Bitcoin Core group,
+and the answers I got were quite confusing to me.&lt;/p&gt;
+
+&lt;p&gt;After having worked in the software industry for 20 years I had become very
+reliant on good quality assurance policies. As well as good usage of
+distributed source management control. Turns out that Core didn&#39;t really
+have any of that in place.&lt;/p&gt;
+
+&lt;p&gt;When I was asked to work with Gavin on Bitcoin Classic I first started to
+work on quality assurance policies and practices.  And I&#39;m happy to say that
+we have reached at least industry standard, if not a little above. But I
+haste to say that there is still room for improvement.&lt;/p&gt;
+
+&lt;h2&gt;Git workflow&lt;/h2&gt;
+
+&lt;p&gt;The first thing that I changed is that we now have a proper git workflow.
+This means that developers fix bugs on the stable branch and we use git
+merges to make those bugfixes go up to the development branch.
+You will find this process in any git book, so I wont&#39; spent too much time
+on this.  The important part is that merges between branches is done often
+and that way we can&#39;t loose work or introduce bugs by doing it manually.
+See also our &lt;a href=&quot;https://github.com/bitcoinclassic/bitcoinclassic/blob/develop/CONTRIBUTING.md&quot;&gt;contributing
+document&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2&gt;Release process&lt;/h2&gt;
+
+&lt;p&gt;The second part that changed is the release process itself.
+Based on the fact that we now have a stable branch that is always
+releasable the release process will become easier.  The aim is to follow
+the good old open source concept of &quot;Release early, release often&quot;.&lt;/p&gt;
+
+&lt;p&gt;One of the biggest changes is that we now follow the &lt;a href=&quot;http://semver.org/&quot;&gt;Semantic
+Versioning&lt;/a&gt; concept which is almost universal for open
+source software as well as for many closed source products.&lt;/p&gt;
+
+&lt;p&gt;Let me quote the core concept;&lt;/p&gt;
+
+&lt;blockquote&gt;&lt;p&gt;Given a version number MAJOR.MINOR.PATCH, increment the:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;MAJOR version when you make incompatible API changes,&lt;/li&gt;
+&lt;li&gt;MINOR version when you add functionality in a backwards-compatible
+manner, and&lt;/li&gt;
+&lt;li&gt;PATCH version when you make backwards-compatible bug fixes.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Additionally I wrote this in the release tag of v1.1.0&lt;/p&gt;
+
+&lt;p&gt;At first we wanted to follow the Core releases, but they have different
+core-values and push out hundreds of lines of new code in a bugfix release
+which feels dirty to have to inherit.  The result of that is that the CSV
+soft fork code feature release has received a bigger version bump.  And
+when that disconnect between Core and Classic versions it also stopped
+making sense to stay close to versioning of Core.&lt;br /&gt;
+It was time to review the numbering scheme altogether.&lt;/p&gt;
+
+&lt;p&gt;When I talked about the &quot;less than 1.0&quot; versioning over beers with
+&lt;a href=&quot;https://en.wikipedia.org/wiki/Eric%5FS%2E%5FRaymond&quot;&gt;Eric S. Raymond&lt;/a&gt; (author of &lt;a href=&quot;https://en.wikipedia.org/wiki/The%5FCathedral%5Fand%5Fthe%5FBazaar&quot;&gt;The Cathedral and the Bazaar&lt;/a&gt;) he explained it like this:&lt;br /&gt;
+The idea was that when the app reaches the set of features required
+for the user with the lowest demands to use it for its intended usage,
+that&#39;s when you call it 1.0.&lt;/p&gt;
+
+&lt;p&gt;Bottom line, Bitcoin is certainly far past its 1.0 release. We will follow
+the Semantic Versioning from now on.&lt;/p&gt;
+
+&lt;h2&gt;Continues Integration building&lt;/h2&gt;
+
+&lt;p&gt;What I was really missing was a proper &lt;a href=&quot;https://en.wikipedia.org/wiki/Continuous%5Fintegration&quot;&gt;Continuous integration&lt;/a&gt; (CI) system. Naturally, there is the freely
+available Travis.  But thats been a frustrating experience and really not
+useful as a build server. Apart from the fact that Travis is really slow
+(taking an hour or more), some and 60% of the time when it says there is a
+failure, it actually isn&#39;t a problem in our code, its really not useful to
+rely on.&lt;/p&gt;
+
+&lt;p&gt;I got a dedicated server in a secure environment and installed Teamcity on
+it. Teamcity is one of the most used CI software systems out there and
+quite useful for our purposes.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://zander.github.io//./images/teamcity.png&quot;&gt;&lt;img src=&quot;http://zander.github.io//./posts/ClassicQuality/500x500-teamcity.png&quot; width=&quot;500&quot; height=&quot;463&quot; class=&quot;float-right&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;It does a couple of things;&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;every single time a change is made in Git (in all branches) it builds
+this for all platforms and runs unit tests at least for the Linux ones.
+Notice that it does the building in a fraction of the time that Travis
+took. Typically a build completes in less than 15 min.&lt;/li&gt;
+&lt;li&gt;It builds both using the &#39;gitian&#39; concept of reproducible (or static)
+build environment for all platforms as well as using the native Linux way
+of using the platform dynamic-libraries (dlls). This makes sure we know it
+works on more than one version of boost and all the other supporting
+libraries.&lt;/li&gt;
+&lt;li&gt;It builds nightly builds of the development branch allowing people to
+test these that don&#39;t want to compile.&lt;/li&gt;
+&lt;li&gt;It pushes the build to remote builders (like Ubuntu&#39;s launchpad) to have
+an easy way to distribute nightly builds or maybe even future releases with
+minimum effort.&lt;/li&gt;
+&lt;li&gt;It tests the Debian contrib to actually build properly.&lt;/li&gt;
+&lt;/ol&gt;
+
+
+&lt;p&gt;As I mentioned, the server is in a secure location. What that means is that
+it is not connected to the internet and physically protected to make sure
+we can trust the output of that server.  When we ship sources anyone can
+check quickly if they are unaltered from the tags in git. But with binaries
+(evil) changes can be much harder to detect.  So I refuse to gpg-sign any
+releases unless I know they actually came from the exact sources that are
+in git, visible for all.&lt;/p&gt;
+
+&lt;h2&gt;Ongoing work&lt;/h2&gt;
+
+&lt;p&gt;There is plenty of issues that could use improvements.  It turns out that
+the original developers don&#39;t really like writing unit tests and the code
+lacks any organization to make unit testing practical or easy.  With some
+small changes such efforts could be made much easier.&lt;/p&gt;
+
+&lt;p&gt;We also have exactly one executable that runs all the test. Which is
+against the unit testing practices of having small units because one
+failure in one test can cause a lot of tests afterwards to start failing
+too, mostly because the memory states were not cleaned up properly after a
+failure.&lt;/p&gt;
+
+&lt;p&gt;Ideally we have a lot of small test executables which can be run by a
+simple runner. With the added benefit that you can run various in parallel
+(one per cpu-core) which makes the whole complete much faster as well.&lt;/p&gt;
+
+&lt;p&gt;We currently have a benchmark framework, but nothing in there. The idea of
+a benchmark is that code which is time critical can be tested in there and
+the output can be printed and plotted over a long time (months) to see that
+such time critical code doesn&#39;t get slower by unintended changes from
+release to release.&lt;br /&gt;
+I find it hard to believe that Bitcoin has no time critical code, as such
+we should be able to find value to locate, test and keep code from getting
+slower.&lt;/p&gt;
+
+&lt;p&gt;Better integration Linux distro&#39;s. Bitcoin was made to be shipped as a big
+executable with all the libraries inside. The thinking was that this saves
+the application from misbehaving when another library changes behavior.
+While the idea seems logical, it shows a lack of experience because the
+open source community has been solving this problem for 30 years and it
+does so quite successfully.  Going against that only introduces a different
+set of problems.  For instance when the libc DNS exploit was made public
+Bitcoin dodged a bullet because libc is one of the very few libraries we
+don&#39;t actually compile in. But imagine any of the libraries we include has
+such a similar vulnerability and the only way to solve that is to re-build
+Bitcoin and get everyone to manually update.   The Linux alternative of
+just running an &lt;code&gt;apt-get upgrade&lt;/code&gt; or similar is vastly more secure and
+better supported.&lt;/p&gt;
+
+&lt;p&gt;As mentioned in the CI section, I already added support for Classic in
+launchpad. This may be something to expand upon and support more Linux
+distros in a similar fashion.&lt;/p&gt;
+
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;Bitcoin Classic has a strong Quality Assurance policy, adopts long time
+industry standard practices and sheds unsafe self-invented ones from
+upstream.&lt;/p&gt;
+
+&lt;p&gt;We also take all the best practices from Open Source and Free Software to
+make releases often for those that want to test the latest and contribute
+by reporting issues, or simply by being part of the network.&lt;/p&gt;
+
+&lt;p&gt;The future is bright!&lt;/p&gt;
+</description>
+
+
+</item>
 <item>
 	<title>On Mining and Wallets</title>
 
