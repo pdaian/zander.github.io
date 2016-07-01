@@ -22,7 +22,7 @@ This means that developers fix bugs on the stable branch and we use git
 merges to make those bugfixes go up to the development branch.
 You will find this process in any git book, so I wont' spent too much time
 on this.  The important part is that merges between branches is done often
-and that way we can't loose work or introduce bugs by doing it manually.
+and that way we can't lose work or introduce bugs by doing it manually.
 See also our [contributing
 document](https://github.com/bitcoinclassic/bitcoinclassic/blob/develop/CONTRIBUTING.md).
 
