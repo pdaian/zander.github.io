@@ -407,3 +407,7 @@ actually create new value to increase your wealth as well as ours.
 
 Bitcoin has a bright future.
 
+[[!tag Bitcoin]]
+[[!tag Mining]]
+[[!tag Community]]
+
