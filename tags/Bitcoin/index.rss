@@ -8,7 +8,7 @@
 
 <description>One may smile, and smile, and be a villain</description>
 <generator>ikiwiki</generator>
-<pubDate>Thu, 30 Jun 2016 10:56:22 +0000</pubDate>
+<pubDate>Fri, 01 Jul 2016 07:59:01 +0000</pubDate>
 <item>
 	<title>ClassicQuality</title>
 
@@ -22,7 +22,7 @@
 
 
 	<pubDate>Thu, 30 Jun 2016 10:33:56 +0000</pubDate>
-	<dcterms:modified>2016-06-30T10:56:22Z</dcterms:modified>
+	<dcterms:modified>2016-07-01T07:59:01Z</dcterms:modified>
 
 
 	<description>&lt;p&gt;When I first started working with Bitcoin, a couple of years ago, I tried
@@ -49,7 +49,7 @@ This means that developers fix bugs on the stable branch and we use git
 merges to make those bugfixes go up to the development branch.
 You will find this process in any git book, so I wont&#39; spent too much time
 on this.  The important part is that merges between branches is done often
-and that way we can&#39;t loose work or introduce bugs by doing it manually.
+and that way we can&#39;t lose work or introduce bugs by doing it manually.
 See also our &lt;a href=&quot;https://github.com/bitcoinclassic/bitcoinclassic/blob/develop/CONTRIBUTING.md&quot;&gt;contributing
 document&lt;/a&gt;.&lt;/p&gt;
 

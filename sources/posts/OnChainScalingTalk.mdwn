@@ -1,0 +1,409 @@
+Last weekend we had the On-chain scaling conference which was a big success
+with lots of excellent speakers and a large amount of visitors asking
+questions and showing interest.
+
+I understand that a lot of people didn't manage to see them live for
+various reasons. Not the least of them being time-zone differences.
+
+When my talk went onto YouTube I decided to put up a transcript here.
+The actual talk can be found on [youtube](https://youtu.be/TCj84RKdjTs).
+
+## Transcript
+
+About 10 years ago I worked at Trolltech, a small Norwegian company making
+tools for developers to build beautiful applications. I worked there for
+some years when we got acquired by Nokia.
+Nokia wanted our development libraries to work fast and smooth on their
+phones as well as on traditional desktops.
+
+
+As this was a developer-driven company many developers came up with
+solutions on how to reach that goal.  These developers showing off their
+ideas meant we had lots of awesome projects to chose from. The projects can
+roughly be split into 2 sides.   The "optimization" side which easily
+fixes a hundred little speed problems . And a "Big-Changes" side.  These are
+projects that require much more time because they change some fundamental
+ideas, but they also have a lot larger return on investment.
+
+I would argue that Bitcoin is in the same position now.  We *have* to get
+better and we have to scale Bitcoin for many more expected users coming
+in over the next years.
+
+My experience with this process in Trolltech was that all the small,
+low-risk changes to make it faster were a huge success. They were needed,
+and they made a huge difference.
+
+On the other hand, the larger "Big-Changes" inevitably introduced more risk and
+they forced people using our software to change their behavior to actually
+use the new concepts and ideas.
+For those reasons their effort ended up taking several years to bear fruit.
+
+In the end both groups pulled it off, and the results are in
+my personal opinion simply unique and amazing.
+
+
+Some lessons I learned from those projects at Trolltech are;
+
+* we need researchers to do what they do best. Come up with strange and
+exciting ways to do things better.
+
+* we also need people doing the boring, "optimization" work, making
+networking protocols work faster and more reliably as a simple example.
+
+This conference presents various "optimization-level" changes that will make
+Bitcoin scale much better than it does now. With very little pain, and from
+experience I expect quite a big gain.
+We call this *on-chain* scaling, because whatever your belief is on
+which path leads to Bitcoins success, if we want to scale, we need on-chain
+transactions to scale beyond the current 3 transactions per second.
+
+For the next years some changes are being prepared which
+by the nature of them being fundamental changes
+in the way that Bitcoin will end up being used, will take much longer to create and rollout.  I've
+seen plans like Segregated Witness and the Lightning Network, interesting
+ideas, for sure.  Various teams are working on that and I wish them all the
+luck. It is already clear that we can't expect those scaling solutions to have
+any reasonable impact without on-chain scaling solutions being rolled out
+as well.
+
+This makes sense off-course, when you think about it, you need the
+foundation to be strong when building on top of it.
+
+
+## Bitcoin, in a nutshell
+
+Now, enough with the high level talk, lets see some actual ideas.
+
+[[!img images/presentation-onchain1.gif]]
+
+This is the idea of Bitcoin.
+We have a single computer that receives transactions and groups them all in
+its memory pool.  What it does at the same time is Bitcoin checks each of
+those transactions for validity and after some time those transactions are
+combined into a block.
+
+Every single transaction entering this Bitcoin computer is checked that the
+transaction is a legal one.  For instance, a payment from person A to
+person B can only be created by person A. We use cryptographic proof to
+check that the person initiating the transaction is actually the owner of
+the coins he or she he sending.
+
+Bitcoin also checks that people don't try to send the digital coins to two
+people at the same time.  The Bitcoin application holds all transactions in
+storage and if one comes in that tries to spend already spent money, it is
+simply rejected.
+
+When a block comes in it makes the transactions contained in that block
+permanent and Bitcoin will merge that block into its database.
+The transactions it had in memory are now removed if they were already in
+the block, or no longer valid because of other transactions in the block.
+
+
+[[!img images/presentation-onchain2.gif]]
+
+Bitcoin is essentially fully operational with just one node, but it works
+with duplication of its functionality over different nodes. Here on screen
+are 5 nodes.
+
+
+When a transaction comes in, the node validates it and if its valid the node
+will forward it to all its neighbors. Which do the same and forward it to
+their neighbors.  In less than 1 second 50% of the network will have the
+transaction, in less than 4s practically all of them will have it.
+
+These nodes are in many respects exact duplicates, so technically there is
+little reason to have more than one node, except maybe failover.
+Politically this duplication means we avoid centralized decision making. We
+avoid one operator being able to tell the rest of the world what Bitcoin
+will look like today. This is assuming we make the system work fast enough.
+
+
+[[!img images/presentation-onchain3.gif]]
+
+
+Blocks, the big collections of transactions, get copied between nodes as
+well. The propagation path is similar to transactions.  Currently we send
+blocks as a complete chunk of data in one go. This is then validated by a
+node to follow the Bitcoin rules and forwarded to its neighbors.
+
+
+A healthy network has a large number of Bitcoin nodes to ensure operation
+and to allow some of them to be removed without harming Bitcoin as a
+whole. Damage to any part of the network will just get routed around.
+
+Naturally, with a large number of nodes, how they are networked together
+becomes more important and that networking layer itself becomes a source of
+failure.
+
+What I've skipped over so far is where the blocks come from. A block is
+created by a miner.
+See, here is one in the bottom left corner.
+
+
+
+It creates a block and sends it over the network.
+Each node turning blue means they received the data.
+
+Now, because a block is actually a substantial amount of
+data, it will take longer than the one second that a single transaction
+took.
+
+
+[[!img images/presentation-onchain4.gif]]
+
+
+Bitcoinstats.com reports between 10 seconds and a minute to propagate a 1MB
+block to practically the whole network.
+
+If we start making bigger blocks, this time will go up. More data means slower
+propagation times.
+
+As the mining difficulty is adjusted every 2 weeks to  make sure that the
+time between blocks stays on average 10 minutes, the time it takes to send
+an entire block is not a big deal for end users. As long as they can
+download blocks faster than they get created, things will continue working.
+Not optimally, but it works.
+
+
+There are many people using Bitcoin that have higher requirements than
+that, though, and the
+current way that Bitcoin works leaves a lot of space for improvement.
+
+## How does this work for miners?
+
+[[!img images/presentation-onchain5.png size=400x325 class=float-right]]
+
+
+I'm currently focussing on miners. How to make sure that miners get the
+best out of the system. To explain what I'm working on I will first show
+what happens with miners using the Bitcoin software.
+
+I'm going to draw the time as shown from the perspective of two miners. One
+at the top of the screen, and another miner in another physical location at
+the bottom of the screen.
+
+
+Two miners are mining and one finds a nonce that makes his block valid.
+So this miner is happy, he just made several thousands of dollars worth of
+money. At least, as long as he can convince the rest of the world to use
+this block he just completed to build on top off for following Bitcoin
+blocks.  This implies his block is seen by the rest of the network before
+any competitors block have finished their block.
+
+
+
+To do so, he sends this block over the network to another miner.
+The mean propagation time measured by Peter Rizun for blocks between 900kb
+and 1MB shows about 4 seconds, but as soon as you hop over the great
+firewall of China this rises to a mean of 17.4 seconds.  I'll use the
+real-time example of 10 seconds here mostly because I don't talk so fast
+anyway.
+
+Now, after the miner on the bottom received the block, he will be able to
+start mining on top of that.
+
+
+
+What you may notice is that the miner on the bottom is essentially doing
+work for about 10 seconds that is useless. He was still competing in the
+competition for block 1 while that race has already been won by another.
+He just didn't know that yet.
+
+Lets take a look at my proposal using "Optimistic mining", which tries to
+fix this specific little issue.
+
+Same situation, one miner finds a block.  Here is a difference. I split up the block into two parts, one is teeny
+tiny and send over the network in close to the speed of light and the other
+is the actual block, unchanged from before.
+
+While the entire block is being sent, the miner at the bottom is now all of a
+sudden able to mine on top of this new block. Therefore no longer losing money
+doing work that is useless.
+Because the full block with all the transactions hasn't arrived yet he
+can't know which transactions were included in it, and thus which
+transactions he can safely include in his block. The solution to this is
+for his block to be empty.
+
+
+The miner switches to mining a full block as soon as he received the whole
+block with transactions and is able to decide which transactions to
+include in his block.
+
+
+The 10 seconds highlighted here is the propagation time of a full block.
+This time can be influenced by many things. Bigger blocks can make it take
+longer. Network attacks may make it essential to ask the original miner for
+more details, slowing down the propagation time. And most importantly, as
+we currently see with the great-firewall of china, some countries may just
+not have such a great connection to the rest of the world.  I don't think
+its a good idea that a miner in Australia loses money just because he has a
+slower connection to the rest of the world.
+
+
+Optimistic mining means a miner is made immune to any propagation delays of
+the transactions in a block. This only can mean good things to avoid
+centralization of mining power.
+
+In my designs the teeny-tiny part of the block a miner sends out as soon as
+he finds a block will be just a block header making it approximately 100 bytes.
+A node can validate this with a cheap check and then forward it.
+
+Two details are important here; the data is forwarded by any node to
+its peers and thats it.  There is no more network traffic that a peer
+generates based on this.  It is just a way to broadcast a new piece of data
+as fast as possible, as far as possible.
+
+
+As I promised, these changes are mostly boring and really not
+noble price worthy. I still get excited from changes that have a
+substantial benefit, though. But I'm just that kind of geek.
+These changes do help a lot when you add many of them together and
+end up with a massively better scaling system than what we have today.
+
+
+##What to work on next
+
+
+If we look at what it means to scale Bitcoin today we look at all the
+obvious resources that any computer program needs. Most of them are really
+not an issue. For instance it would take 75 years to fill up a mainstream
+harddrive of 3TB with todays block size.  People run the client on a
+raspberry Pi. And it copes just fine.
+
+In Bitcoin the biggest scaling issue we have today is the inefficient use
+of bandwidth and the poor peer to peer network.  This is demonstrated best
+by the usage of a centralized relay system which operates outside of the
+Bitcoin network that miners use to send blocks to each other as fast as possible.
+As long as those centralizes systems are needed we will have a permissioned
+system where a new player needs permission to enter.  New player that don't
+get permission to use the relay system that all the other miners are on,
+will not be able to compete.
+We don't want a system where the relay operators get to decide what miners
+can and can not do, under threat of losing their access and subsequently
+their business.
+
+In Bitcoin we currently have what I'd label a first generation p2p network.
+Think about a system that students typically set up in class during
+computer science as a play thing. Its making all the traditional mistakes.
+
+
+##Further research
+
+
+The Bitcoin network uses unlabeled binary blobs to send over the wire. This
+implies that developers can never fix a message because old clients would
+not understand it and likely fail spectacularly.  Tagged formats, the most
+well known of which is JSON, solved this many years ago.
+What we need is like HTML where an old browser can still read the
+newest format without giving errors. It just ignores the parts it doesn't
+know.
+
+When I worked for a financial company sending out half a million stock-price
+quotes every second, I learned a lot about how to do a binary protocol
+properly.
+I've done some extended testing already with a new on-the-wire protocol that
+has looks like its saving on bandwidth and speed quite substantially.
+But the real benefit is that it can be extended because the fields are
+labeled much like JSON or XML do. Its values are also strongly typed and
+extensible.  What that means is that the protocol itself includes the
+information that says a value is an int, a bool or a string.
+
+Making such a chance would be very beneficial to make the protocol more
+maintainable by allowing bugfixes to be made that are backwards compatible
+in a clean manner.
+
+
+Another issue we have with our peer to peer system is based on how an
+individual node finds other nodes to connect to. We have some code
+that decides based on the IP-address numbers whom to connect to.
+The logic seems to be
+that an IP address is a good indication for location, so it searches to
+connect to many different locations.
+Unfortunately, this is overstating the correlation between addresses and
+distance so this is only slightly better than pure randomly choosing whom to
+connect to.
+
+Why is this important? Lets take an example of 2000 nodes, all around the world that
+want to get a message as fast as possible to all of those nodes,
+my thinking is that we each node should measure the distance to another
+node by seeing how long it takes to send a message and the message to come
+back to us.
+
+We can then order the
+sending of the messages so longer distance messages are send first and
+shorter distance messages are send later.
+
+Think about it like this, you could send a message by courier to the next
+village and he sends it to the next and so on.
+Or you send a courier by plane to the next big city and he starts sending
+couriers out from there.
+The idea is that a message would get to the the other side of the globe in
+5 hops instead of 50.
+
+
+To be fair, there are really not a lot of systems out there that create a
+peer to peer system of this scale that have no central server and have to
+send messages through the entire system as fast as possible. But this lack of
+competition just means its going to be a nice challenge to find what works
+and what doesn't.
+
+
+##Some other details
+
+We have some work done that fixes the problem that while downloading and
+validating a block that node can't relay transactions.
+
+For our protocol to get to a more professional level we'd also need message
+priority. A node pushing something to the top of the message-queue to be sent.
+
+We'd likely want to support both TCP and UDP queues where UDP is used for
+higher-priority but smaller messages.  That would be ideal for the
+optimistic mining teeny-tiny block message we want to go around the world in
+near lightspeed.
+
+And last we'd *really* need to set a maximum size for a single message. The
+telco's switched to packet switching in the 90s, we're long overdue.
+We now send a single message of one or many megabytes, experience shows that
+splitting that up into multiple messages or maybe 50kb, and re-assembling it on the other
+side will have a very positive effect on throughput because you can
+send bigger data to two peers at the same time, using only twice the wall-time in optimal situations.
+But when you are sending a large block to a peer
+that is very slow in receiving it, this message chunk-ING will stop slowing
+down your sending speed to another peer at the same time.
+
+I've implemented this in another system where the overhead per 50KB message ended
+up being only 14 bytes. So I really don't see any reason to not do this.
+
+
+These are useful changes that I'm hoping to see being worked on, if not by
+me, then someone else.
+
+
+Other issues we will bump into as we get bigger blocks and higher
+throughput are going to be found, and fixed as we move forward. I have no
+doubt about that. That is the nature of this game, there is always some
+optimization that we haven't done yet.
+
+
+Beyond the network layer are a lot of other things that show up as being
+useful to work on in order to allow more data to go through Bitcoin cheaper
+and faster. Its still young software and I don't think its been bothered
+with profilers or other speed measurements very often. Gavin started a
+benchmark suite that never really saw uptake by any of the other
+developers. So please expect a huge amount of benefits to happen in the
+next years alone for throughput as its easy pickings for optimizations when
+its not been done for years.
+
+I would say that within a year the network would be safely able to handle
+between 20 and 50 MB blocks.
+
+
+
+Creating a Bitcoin that, on-chain, can grow and support more users will be
+the thing that actually creates more value for the Bitcoin ecosystem.
+So while our opponents are discussing how to distribute the money of the
+rich differently, until they inevitably run out of money, we are working to
+actually create new value to increase your wealth as well as ours.
+
+Bitcoin has a bright future.
+
