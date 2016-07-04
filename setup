@@ -1,6 +1,6 @@
 # IkiWiki::Setup::Yaml - YAML formatted setup file
 
-wikiname: One may smile, and smile, and be a villain
+wikiname: Toms place
 srcdir: sources
 destdir: .
 url: http://zander.github.io/
