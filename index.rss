@@ -6,19 +6,27 @@
 <title>tomz-blog</title>
 <link>http://zander.github.io//</link>
 
-<description>One may smile, and smile, and be a villain</description>
+<description>Toms place</description>
 <generator>ikiwiki</generator>
-<pubDate>Fri, 01 Jul 2016 12:41:07 +0000</pubDate>
+<pubDate>Mon, 04 Jul 2016 10:06:57 +0000</pubDate>
 <item>
-	<title>OnChainScalingTalk</title>
+	<title>Innovation - OnlineScaling</title>
 
-	<guid isPermaLink="false">http://zander.github.io//posts/OnChainScalingTalk/</guid>
+	<guid isPermaLink="false">http://zander.github.io//posts/Innovation%20-%20OnlineScaling/</guid>
 
-	<link>http://zander.github.io//posts/OnChainScalingTalk/</link>
+	<link>http://zander.github.io//posts/Innovation%20-%20OnlineScaling/</link>
 
 
-	<pubDate>Fri, 01 Jul 2016 12:38:41 +0000</pubDate>
-	<dcterms:modified>2016-07-01T12:41:07Z</dcterms:modified>
+
+	<category>Bitcoin</category>
+
+	<category>Community</category>
+
+	<category>Mining</category>
+
+
+	<pubDate>Mon, 04 Jul 2016 10:06:57 +0000</pubDate>
+	<dcterms:modified>2016-07-04T10:06:57Z</dcterms:modified>
 
 
 	<description>&lt;p&gt;Last weekend we had the On-chain scaling conference which was a big success
@@ -96,7 +104,7 @@ foundation to be strong when building on top of it.&lt;/p&gt;
 
 &lt;p&gt;Now, enough with the high level talk, lets see some actual ideas.&lt;/p&gt;
 
-&lt;p&gt;&lt;span class=&quot;createlink&quot;&gt;&lt;a href=&quot;http://zander.github.io/ikiwiki.cgi?from=posts%2FOnChainScalingTalk&amp;amp;do=create&amp;amp;page=images%2Fpresentation-onchain1.gif&quot; rel=&quot;nofollow&quot;&gt;?&lt;/a&gt;presentation-onchain1.gif&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://zander.github.io//./images/presentation-onchain1.gif&quot;&gt;&lt;img src=&quot;http://zander.github.io//./images/presentation-onchain1.gif&quot; width=&quot;400&quot; height=&quot;224&quot; class=&quot;img&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;This is the idea of Bitcoin.
 We have a single computer that receives transactions and groups them all in
@@ -120,7 +128,7 @@ permanent and Bitcoin will merge that block into its database.
 The transactions it had in memory are now removed if they were already in
 the block, or no longer valid because of other transactions in the block.&lt;/p&gt;
 
-&lt;p&gt;&lt;span class=&quot;createlink&quot;&gt;&lt;a href=&quot;http://zander.github.io/ikiwiki.cgi?from=posts%2FOnChainScalingTalk&amp;amp;do=create&amp;amp;page=images%2Fpresentation-onchain2.gif&quot; rel=&quot;nofollow&quot;&gt;?&lt;/a&gt;presentation-onchain2.gif&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://zander.github.io//./images/presentation-onchain2.gif&quot;&gt;&lt;img src=&quot;http://zander.github.io//./images/presentation-onchain2.gif&quot; width=&quot;400&quot; height=&quot;224&quot; class=&quot;img&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;Bitcoin is essentially fully operational with just one node, but it works
 with duplication of its functionality over different nodes. Here on screen
@@ -137,7 +145,7 @@ Politically this duplication means we avoid centralized decision making. We
 avoid one operator being able to tell the rest of the world what Bitcoin
 will look like today. This is assuming we make the system work fast enough.&lt;/p&gt;
 
-&lt;p&gt;&lt;span class=&quot;createlink&quot;&gt;&lt;a href=&quot;http://zander.github.io/ikiwiki.cgi?page=images%2Fpresentation-onchain3.gif&amp;amp;from=posts%2FOnChainScalingTalk&amp;amp;do=create&quot; rel=&quot;nofollow&quot;&gt;?&lt;/a&gt;presentation-onchain3.gif&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://zander.github.io//./images/presentation-onchain3.gif&quot;&gt;&lt;img src=&quot;http://zander.github.io//./images/presentation-onchain3.gif&quot; width=&quot;400&quot; height=&quot;224&quot; class=&quot;img&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;Blocks, the big collections of transactions, get copied between nodes as
 well. The propagation path is similar to transactions.  Currently we send
@@ -163,7 +171,7 @@ Each node turning blue means they received the data.&lt;/p&gt;
 data, it will take longer than the one second that a single transaction
 took.&lt;/p&gt;
 
-&lt;p&gt;&lt;span class=&quot;createlink&quot;&gt;&lt;a href=&quot;http://zander.github.io/ikiwiki.cgi?page=images%2Fpresentation-onchain4.gif&amp;amp;from=posts%2FOnChainScalingTalk&amp;amp;do=create&quot; rel=&quot;nofollow&quot;&gt;?&lt;/a&gt;presentation-onchain4.gif&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://zander.github.io//./images/presentation-onchain4.gif&quot;&gt;&lt;img src=&quot;http://zander.github.io//./images/presentation-onchain4.gif&quot; width=&quot;400&quot; height=&quot;224&quot; class=&quot;img&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;Bitcoinstats.com reports between 10 seconds and a minute to propagate a 1MB
 block to practically the whole network.&lt;/p&gt;
@@ -183,7 +191,7 @@ current way that Bitcoin works leaves a lot of space for improvement.&lt;/p&gt;
 
 &lt;h2&gt;How does this work for miners?&lt;/h2&gt;
 
-&lt;p&gt;&lt;span class=&quot;createlink&quot;&gt;&lt;a href=&quot;http://zander.github.io/ikiwiki.cgi?from=posts%2FOnChainScalingTalk&amp;amp;do=create&amp;amp;page=images%2Fpresentation-onchain5.png&quot; rel=&quot;nofollow&quot;&gt;?&lt;/a&gt;presentation-onchain5.png&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://zander.github.io//./images/presentation-onchain5.png&quot;&gt;&lt;img src=&quot;http://zander.github.io//./posts/Innovation - OnlineScaling/400x325-presentation-onchain5.png&quot; width=&quot;400&quot; height=&quot;325&quot; class=&quot;float-right&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;I&#39;m currently focussing on miners. How to make sure that miners get the
 best out of the system. To explain what I&#39;m working on I will first show
