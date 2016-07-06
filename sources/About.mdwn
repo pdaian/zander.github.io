@@ -1,14 +1,21 @@
-Tom Zander
+# About this blog
+
+This blog is about the work and hobbies of Tom Zander.
 
 Tom is an software architect, enthusiast and perfectionist.
 
-Tom has decades of software development experience under his belt
-with an equally long time programming in free software communities.
+Tom is a software guru, open source fan and developer. Tom has more than 20
+years professional programming experience in a range of languages. Toms
+experience has been varied, but focus is on C++ & Linux. Since 1998 Tom has
+been involved in various open source projects. His first big application
+that was released was part of KDE in the year 2000. Tom is involved with
+Bitcoin since 2013 and has worked in financial companies in order to learn
+more about economics, money and fin-tech.
 
-He currently works on [Bitcoin Classic](https://bitcoinclassic.com)
-where he tries to make the world a better place.
+Tom is currently working on
+[Bitcoin Classic](https://bitcoinclassic.com)
 
-
-This blog is created using ikiwiki and the sources can be found on
-[github](https://github.com/zander/zander.github.io/tree/master/sources)
-translations, bugfixes etc are welcome via pull requests or email.
+This blog runs on ikiwiki and the raw blog files are stored in git on
+[github](https://github.com/zander/zander.github.io/tree/master/sources).
+Translations, bugfixes etc are welcome via pull requests or email (see
+footer for email address).
