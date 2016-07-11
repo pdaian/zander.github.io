@@ -75,8 +75,6 @@
 
 
 <aside class="sidebar">
-
-
 <div><div class="calendar"><table class="month-calendar">
     <tr>
     <th class="month-calendar-arrow"><a href="../05/" title="May">&larr;</a></th>
@@ -130,12 +128,12 @@
     </tr>
     <tr>
         <td class="month-calendar-day-nolink Sunday">26</td>
-        <td class="month-calendar-day-link Monday"><div class="popup">27<div class="balloon"><ul>
+        <td class="month-calendar-day-link Monday"><div class='popup'>27<div class='balloon'><ul>
             <li><a href="../../../posts/On Mining and Wallets/" title="On Mining and Wallets">On Mining and Wallets</a></li>
         </ul></div></div></td>
         <td class="month-calendar-day-nolink Tuesday">28</td>
         <td class="month-calendar-day-nolink Wednesday">29</td>
-        <td class="month-calendar-day-link Thursday"><div class="popup">30<div class="balloon"><ul>
+        <td class="month-calendar-day-link Thursday"><div class='popup'>30<div class='balloon'><ul>
             <li><a href="../../../posts/ClassicQuality/" title="ClassicQuality">ClassicQuality</a></li>
         </ul></div></div></td>
         <td class="month-calendar-day-noday Friday">&nbsp;</td>
@@ -144,7 +142,6 @@
 </table>
 </div></div>
 
-
 </aside>
 
 
@@ -152,8 +149,6 @@
 <div id="pagebody">
 
 <section id="content" role="main">
-
-
 <article class="inlinepage">
 
 <section class="inlineheader">
@@ -165,7 +160,7 @@
 </section>
 
 <section class="inlinecontent">
-<h3>Don't leave your money on the street.</h3>
+<h3 id="dontleaveyourmoneyonthestreet.">Don't leave your money on the street.</h3>
 
 <p>Bitcoind is labelled as the backend of the network. When I explain this to
 friends I explain it like its the router that you have stuffed behind the
@@ -216,7 +211,7 @@ practice of storing bitcoin private keys (and the money they represent) on
 a piece of equipment that really is meant to be like a router or a hub
 connecting your business to the Bitcoin network.</p>
 
-<h3>Stop demanding a wallet in a mining node</h3>
+<h3 id="stopdemandingawalletinaminingnode">Stop demanding a wallet in a mining node</h3>
 
 <p>In Bitcoin Classic's development branch we have changed the
 system to allow mining on a node that does not have a wallet compiled in.</p>
@@ -232,7 +227,6 @@ something like this;</p>
   "private": "KyjwYTJrhAS14fV7fP16Z9bhiudpPcSTT5HpPgpoampS57zgT59w"
 }
 </pre>
-
 
 <p>The private key is the one piece of information needed to later spent the
 money that would be stored on the address. To benefit from this change the
@@ -315,7 +309,7 @@ work on quality assurance policies and practices.  And I'm happy to say that
 we have reached at least industry standard, if not a little above. But I
 haste to say that there is still room for improvement.</p>
 
-<h2>Git workflow</h2>
+<h2 id="gitworkflow">Git workflow</h2>
 
 <p>The first thing that I changed is that we now have a proper git workflow.
 This means that developers fix bugs on the stable branch and we use git
@@ -326,7 +320,7 @@ and that way we can't lose work or introduce bugs by doing it manually.
 See also our <a href="https://github.com/bitcoinclassic/bitcoinclassic/blob/develop/CONTRIBUTING.md">contributing
 document</a>.</p>
 
-<h2>Release process</h2>
+<h2 id="releaseprocess">Release process</h2>
 
 <p>The second part that changed is the release process itself.
 Based on the fact that we now have a stable branch that is always
@@ -339,14 +333,15 @@ source software as well as for many closed source products.</p>
 
 <p>Let me quote the core concept;</p>
 
-<blockquote><p>Given a version number MAJOR.MINOR.PATCH, increment the:</p>
-
-<ol>
-<li>MAJOR version when you make incompatible API changes,</li>
-<li>MINOR version when you add functionality in a backwards-compatible
-manner, and</li>
-<li>PATCH version when you make backwards-compatible bug fixes.</li>
-</ol>
+<blockquote>
+  <p>Given a version number MAJOR.MINOR.PATCH, increment the:</p>
+  
+  <ol>
+  <li>MAJOR version when you make incompatible API changes,</li>
+  <li>MINOR version when you add functionality in a backwards-compatible
+  manner, and</li>
+  <li>PATCH version when you make backwards-compatible bug fixes.</li>
+  </ol>
 </blockquote>
 
 <p>Additionally I wrote this in the release tag of v1.1.0</p>
@@ -356,11 +351,11 @@ core-values and push out hundreds of lines of new code in a bugfix release
 which feels dirty to have to inherit.  The result of that is that the CSV
 soft fork code feature release has received a bigger version bump.  And
 when that disconnect between Core and Classic versions it also stopped
-making sense to stay close to versioning of Core.<br />
+making sense to stay close to versioning of Core. <br />
 It was time to review the numbering scheme altogether.</p>
 
 <p>When I talked about the "less than 1.0" versioning over beers with
-<a href="https://en.wikipedia.org/wiki/Eric%5FS%2E%5FRaymond">Eric S. Raymond</a> (author of <a href="https://en.wikipedia.org/wiki/The%5FCathedral%5Fand%5Fthe%5FBazaar">The Cathedral and the Bazaar</a>) he explained it like this:<br />
+<a href="https://en.wikipedia.org/wiki/Eric%5FS%2E%5FRaymond">Eric S. Raymond</a> (author of <a href="https://en.wikipedia.org/wiki/The%5FCathedral%5Fand%5Fthe%5FBazaar">The Cathedral and the Bazaar</a>) he explained it like this: <br />
 The idea was that when the app reaches the set of features required
 for the user with the lowest demands to use it for its intended usage,
 that's when you call it 1.0.</p>
@@ -368,7 +363,7 @@ that's when you call it 1.0.</p>
 <p>Bottom line, Bitcoin is certainly far past its 1.0 release. We will follow
 the Semantic Versioning from now on.</p>
 
-<h2>Continues Integration building</h2>
+<h2 id="continuesintegrationbuilding">Continues Integration building</h2>
 
 <p>What I was really missing was a proper <a href="https://en.wikipedia.org/wiki/Continuous%5Fintegration">Continuous integration</a> (CI) system. Naturally, there is the freely
 available Travis.  But thats been a frustrating experience and really not
@@ -403,7 +398,6 @@ minimum effort.</li>
 <li>It tests the Debian contrib to actually build properly.</li>
 </ol>
 
-
 <p>As I mentioned, the server is in a secure location. What that means is that
 it is not connected to the internet and physically protected to make sure
 we can trust the output of that server.  When we ship sources anyone can
@@ -412,7 +406,7 @@ check quickly if they are unaltered from the tags in git. But with binaries
 releases unless I know they actually came from the exact sources that are
 in git, visible for all.</p>
 
-<h2>Ongoing work</h2>
+<h2 id="ongoingwork">Ongoing work</h2>
 
 <p>There is plenty of issues that could use improvements.  It turns out that
 the original developers don't really like writing unit tests and the code
@@ -433,7 +427,7 @@ simple runner. With the added benefit that you can run various in parallel
 a benchmark is that code which is time critical can be tested in there and
 the output can be printed and plotted over a long time (months) to see that
 such time critical code doesn't get slower by unintended changes from
-release to release.<br />
+release to release. <br />
 I find it hard to believe that Bitcoin has no time critical code, as such
 we should be able to find value to locate, test and keep code from getting
 slower.</p>
@@ -456,7 +450,7 @@ better supported.</p>
 launchpad. This may be something to expand upon and support more Linux
 distros in a similar fashion.</p>
 
-<h2>Conclusion</h2>
+<h2 id="conclusion">Conclusion</h2>
 
 <p>Bitcoin Classic has a strong Quality Assurance policy, adopts long time
 industry standard practices and sheds unsafe self-invented ones from
@@ -490,9 +484,6 @@ Tags:
 </article>
 
 
-
-
-
 </section>
 
 
@@ -517,7 +508,7 @@ Content licensed under the <a href="https://creativecommons.org/licenses/by-sa/3
 </div>
 
 <div class="pagedate">
-Last edited <time datetime="2016-07-04T10:09:16Z">Mon 04 Jul 2016 10:09:16 AM Europe</time>
+Last edited <time datetime="2016-07-11T13:23:44Z">Mon 11 Jul 2016 01:23:44 PM Europe</time>
 </div>
 
 </nav>

@@ -8,7 +8,7 @@
 
 <description>Toms place</description>
 <generator>ikiwiki</generator>
-<pubDate>Mon, 04 Jul 2016 10:06:57 +0000</pubDate>
+<pubDate>Mon, 11 Jul 2016 08:02:17 +0000</pubDate>
 <item>
 	<title>Innovation - OnlineScaling</title>
 
@@ -26,7 +26,7 @@
 
 
 	<pubDate>Mon, 04 Jul 2016 10:06:57 +0000</pubDate>
-	<dcterms:modified>2016-07-04T10:06:57Z</dcterms:modified>
+	<dcterms:modified>2016-07-11T08:02:17Z</dcterms:modified>
 
 
 	<description>&lt;p&gt;Last weekend we had the On-chain scaling conference which was a big success
@@ -39,7 +39,7 @@ various reasons. Not the least of them being time-zone differences.&lt;/p&gt;
 &lt;p&gt;When my talk went onto YouTube I decided to put up a transcript here.
 The actual talk can be found on &lt;a href=&quot;https://youtu.be/TCj84RKdjTs&quot;&gt;youtube&lt;/a&gt;.&lt;/p&gt;
 
-&lt;h2&gt;Transcript&lt;/h2&gt;
+&lt;h2 id=&quot;transcript&quot;&gt;Transcript&lt;/h2&gt;
 
 &lt;p&gt;About 10 years ago I worked at Trolltech, a small Norwegian company making
 tools for developers to build beautiful applications. I worked there for
@@ -80,7 +80,6 @@ exciting ways to do things better.&lt;/p&gt;&lt;/li&gt;
 networking protocols work faster and more reliably as a simple example.&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-
 &lt;p&gt;This conference presents various &quot;optimization-level&quot; changes that will make
 Bitcoin scale much better than it does now. With very little pain, and from
 experience I expect quite a big gain.
@@ -100,7 +99,7 @@ as well.&lt;/p&gt;
 &lt;p&gt;This makes sense off-course, when you think about it, you need the
 foundation to be strong when building on top of it.&lt;/p&gt;
 
-&lt;h2&gt;Bitcoin, in a nutshell&lt;/h2&gt;
+&lt;h2 id=&quot;bitcoininanutshell&quot;&gt;Bitcoin, in a nutshell&lt;/h2&gt;
 
 &lt;p&gt;Now, enough with the high level talk, lets see some actual ideas.&lt;/p&gt;
 
@@ -189,7 +188,7 @@ Not optimally, but it works.&lt;/p&gt;
 that, though, and the
 current way that Bitcoin works leaves a lot of space for improvement.&lt;/p&gt;
 
-&lt;h2&gt;How does this work for miners?&lt;/h2&gt;
+&lt;h2 id=&quot;howdoesthisworkforminers&quot;&gt;How does this work for miners?&lt;/h2&gt;
 
 &lt;p&gt;&lt;a href=&quot;http://zander.github.io//tags/Community/../../images/presentation-onchain5.png&quot;&gt;&lt;img src=&quot;http://zander.github.io//tags/Community/../../posts/Innovation - OnlineScaling/400x325-presentation-onchain5.png&quot; width=&quot;400&quot; height=&quot;325&quot; class=&quot;float-right&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
@@ -270,7 +269,7 @@ substantial benefit, though. But I&#39;m just that kind of geek.
 These changes do help a lot when you add many of them together and
 end up with a massively better scaling system than what we have today.&lt;/p&gt;
 
-&lt;h2&gt;What to work on next&lt;/h2&gt;
+&lt;h2 id=&quot;whattoworkonnext&quot;&gt;What to work on next&lt;/h2&gt;
 
 &lt;p&gt;If we look at what it means to scale Bitcoin today we look at all the
 obvious resources that any computer program needs. Most of them are really
@@ -294,7 +293,7 @@ their business.&lt;/p&gt;
 Think about a system that students typically set up in class during
 computer science as a play thing. Its making all the traditional mistakes.&lt;/p&gt;
 
-&lt;h2&gt;Further research&lt;/h2&gt;
+&lt;h2 id=&quot;furtherresearch&quot;&gt;Further research&lt;/h2&gt;
 
 &lt;p&gt;The Bitcoin network uses unlabeled binary blobs to send over the wire. This
 implies that developers can never fix a message because old clients would
@@ -351,7 +350,7 @@ send messages through the entire system as fast as possible. But this lack of
 competition just means its going to be a nice challenge to find what works
 and what doesn&#39;t.&lt;/p&gt;
 
-&lt;h2&gt;Some other details&lt;/h2&gt;
+&lt;h2 id=&quot;someotherdetails&quot;&gt;Some other details&lt;/h2&gt;
 
 &lt;p&gt;We have some work done that fixes the problem that while downloading and
 validating a block that node can&#39;t relay transactions.&lt;/p&gt;
@@ -423,7 +422,7 @@ actually create new value to increase your wealth as well as ours.&lt;/p&gt;
 
 
 	<pubDate>Tue, 24 May 2016 18:35:02 +0000</pubDate>
-	<dcterms:modified>2016-06-27T10:45:43Z</dcterms:modified>
+	<dcterms:modified>2016-07-11T08:02:17Z</dcterms:modified>
 
 
 	<description>&lt;p&gt;The story I want to tell today is one of confusion.&lt;/p&gt;
@@ -433,7 +432,6 @@ actually create new value to increase your wealth as well as ours.&lt;/p&gt;
 
 &lt;/br&gt;&lt;i&gt;Confusing translation. By &lt;a href=&quot;https://www.flickr.com/photos/dandownunder/220926841/&quot;&gt;dandownunder&lt;/a&gt;&lt;/i&gt;
 &lt;/div&gt;
-
 
 &lt;p&gt;I have been a software developer for various decades and in that time the
 way that I start a new job or a new task is similar.  It is one of
@@ -448,7 +446,7 @@ mean you have anything interesting to write.  You need to learn.&lt;/p&gt;
 something completely different on a regular basis.&lt;/p&gt;
 
 &lt;p&gt;Learning about Bitcoin was surprising difficult. I&#39;ve been learning for
-almost 4 years and I am certain I will continue for many more.&lt;br /&gt;
+almost 4 years and I am certain I will continue for many more. &lt;br /&gt;
 I would have to say that from all the industries that I studied, learning
 about Bitcoin details has been the hardest.&lt;/p&gt;
 
@@ -460,7 +458,7 @@ details about Bitcoin.&lt;/p&gt;
 &lt;p&gt;The following scenario would happen on a regular basis: A couple of random
 people on the internet are in a discussion about some detail. For instance
 they talk about the claim that miners would never willingly break the
-Bitcoin consensus rules.&lt;br /&gt;
+Bitcoin consensus rules. &lt;br /&gt;
 After some time an expert comes in and resolves the conflict by stating
 some fact.  In our example, he could say that after the 2012 halving there
 were various miners for some hours that continued to mine blocks with 50BTC
@@ -494,15 +492,16 @@ facts.  In the current world it is impossible to differentiate fact from
 opinion because we can&#39;t independently validate those facts.&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-
 &lt;p&gt;&lt;em&gt;I have become convinced that the first big step we need to make to create
 a more healthy Bitcoin ecosystem is to make access to currently well hidden
 facts completely open for anyone to access and contribute to.&lt;/em&gt;&lt;/p&gt;
 
 &lt;p&gt;Wikimedia &lt;a href=&quot;https://wikimediafoundation.org/wiki/Vision&quot;&gt;writes&lt;/a&gt;;&lt;/p&gt;
 
-&lt;blockquote&gt;&lt;p&gt;Imagine a world in which every single human being can freely share in the
-sum of all knowledge.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;Imagine a world in which every single human being can freely share in the
+  sum of all knowledge.&lt;/p&gt;
+&lt;/blockquote&gt;
 
 &lt;p&gt;I think that goal is inspiration that Bitcoin could use very well.  I would
 like to see a Free Wikipedia for Bitcoin technology.&lt;/p&gt;
@@ -522,9 +521,9 @@ is the death to cooperation.&lt;/p&gt;
 &lt;p&gt;The secondary goal, then, should be to create documentation that can not
 be censored or controlled.&lt;/p&gt;
 
-&lt;h3&gt;BitcoinWiki.git&lt;/h3&gt;
+&lt;h3 id=&quot;bitcoinwiki.git&quot;&gt;BitcoinWiki.git&lt;/h3&gt;
 
-&lt;h4&gt;Part of the solution; git.&lt;/h4&gt;
+&lt;h4 id=&quot;partofthesolutiongit.&quot;&gt;Part of the solution; git.&lt;/h4&gt;
 
 &lt;p&gt;Git is a tool used for many years by enthusiasts and professionals alike to
 create a distributed
@@ -535,11 +534,11 @@ permission. It also removes the central ownership. No longer is it needed
 to convince one group of the worth of your changes, there may be various
 groups each creating what they think is the best version.&lt;/p&gt;
 
-&lt;h4&gt;Lowering the threshold of entry.&lt;/h4&gt;
+&lt;h4 id=&quot;loweringthethresholdofentry.&quot;&gt;Lowering the threshold of entry.&lt;/h4&gt;
 
 &lt;p&gt;While git allows the actual required working together, it is just a basic
 layer. Many end users don&#39;t want to use git, and that should be perfectly
-Ok.&lt;br /&gt;
+Ok. &lt;br /&gt;
 Much like Wikipedia allows a user to do everything from a web browser, we
 need a way to do the same in order to not scare off people that could
 really contribute but don&#39;t have the technical knowledge to install and use
@@ -552,7 +551,7 @@ What one person changes on the website can be merged with what another
 person makes at another time. Even when those people use a different
 website or a different team to do the work in.&lt;/p&gt;
 
-&lt;h3&gt;Starting the revolution.&lt;/h3&gt;
+&lt;h3 id=&quot;startingtherevolution.&quot;&gt;Starting the revolution.&lt;/h3&gt;
 
 &lt;p&gt;To start somewhere I present a website that has all the content (including
 all revisions back until its start in 2010) copied from what has so far
@@ -580,7 +579,7 @@ there are quite a lot of flaws in the actual content.&lt;/p&gt;
 over to the git repository. I would suspect that most of them are in fact
 irrelevant. Some closer inspection is needed.&lt;/p&gt;
 
-&lt;h4&gt;Be part of the solution, please help&lt;/h4&gt;
+&lt;h4 id=&quot;bepartofthesolutionpleasehelp&quot;&gt;Be part of the solution, please help&lt;/h4&gt;
 
 &lt;p&gt;In my own humble opinion the goal of the old wiki is wrong, it highlighted
 all companies in the space which included all gambling sites and places

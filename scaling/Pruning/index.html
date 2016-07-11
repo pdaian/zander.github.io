@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+<meta charset="utf-8" />
+<title>Pruning</title>
+
+
+<link rel="stylesheet" href="../../style.css" type="text/css" />
+
+<link rel="stylesheet" href="../../local.css" type="text/css" />
+
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+
+<article class="page">
+
+<section class="pageheader">
+<header class="header">
+<span>
+<span class="parentlinks">
+
+<a href="../../">Toms place</a>/ 
+
+<a href="../../">scaling</a>/ 
+
+</span>
+<span class="title">
+Pruning
+
+</span>
+</span>
+
+
+
+</header>
+
+
+<nav class="actions">
+<ul>
+
+
+
+
+
+<li><a href="/ikiwiki.cgi?do=prefs">Preferences</a></li>
+
+
+
+
+
+</ul>
+</nav>
+
+
+
+
+
+
+
+
+</section>
+
+
+
+
+
+<div id="pagebody">
+
+<section id="content" role="main">
+<h2 id="pruningdesignideas">Pruning design ideas</h2>
+
+<p>In 2016 the pruning concept has been designed to do one thing and one thing
+only.  It is about removing historic blocks from a node based on a maximum
+disk-usage set in the configuration.</p>
+
+<p>Effect of this is that this node can no longer serve <em>any</em> history because
+serving history is set as a boolean on or off using a service bit.</p>
+
+<h3 id="randompruningmode">Random pruning mode</h3>
+
+<p>There is a large gap between the two current modes of everything
+(currently 75GB) and only what we need (2GB or so).</p>
+
+<p>This mode would have two areas, it would keep a days worth of blocks to
+make sure that any reorgs etc would not cause a re-download, but it would
+have additionally have an area that can be used to store historical data to
+be shared on the network. Maybe 20 or 50GB.</p>
+
+<p>One main feature of Bitcoin is that we have massive replication. Each node
+currently holds all the same data that every other node holds. But this
+doesn't have to be the case with pruned nodes.  A node itself has no need
+for historic data at all.</p>
+
+<p>The suggestion is that a node stores a random set of blocks. Dropping
+random blocks as the node runs out of disk-space.   Additionally, we would
+introduce a new way to download blocks from other nodes which allows the
+node to say it doesn't actually have the block requested.</p>
+
+<p>The effect of this setup is that many different nodes together end up
+having the total amount of blocks, even though each node only has a
+fraction of the total amount.</p>
+
+<h3 id="transaction-signaturepruning">Transaction-signature pruning</h3>
+
+<p>There have been talks before about changing the transaction format itself
+and specifically the way that signatures are stored. A signature is only
+needed at the time that a transaction is validated.</p>
+
+<p>Network nodes that have been turned of for a longer time can choose to only
+download the blocks-headers and transactions so they can fully check them
+and update any wallets.  This means that they can skip downloading of the
+transaction-signatures.</p>
+
+<p>Any node that chooses not to check signatures on transactions while still
+checking the block for proof of work and general correctness would depend
+on the amount of proof-of-work that has gone into creating the whole chain
+to be safe in the assumption that many others have checked those
+transactions for validity.  Naturally, any transactions in blocks less
+than, say, a week old still should be checked. This is purely about
+historic transactions.</p>
+
+</section>
+
+
+
+
+
+
+
+</div>
+
+<footer id="footer" class="pagefooter" role="contentinfo">
+
+<nav id="pageinfo">
+
+
+
+
+
+<div class="copyrightinfo">
+Copyright &copy; 2016 Tom Zander &lt;tomz@freedommail.ch&gt;</br>
+Content licensed under the <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC by-sa</a>
+</div>
+
+<div class="pagedate">
+Last edited <time datetime="2016-07-11T11:24:04Z">Mon 11 Jul 2016 11:24:04 AM Europe</time>
+</div>
+
+</nav>
+
+
+</footer>
+</article>
+
+</body>
+</html>

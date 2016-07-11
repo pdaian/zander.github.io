@@ -1,0 +1,56 @@
+##Pruning design ideas
+
+In 2016 the pruning concept has been designed to do one thing and one thing
+only.  It is about removing historic blocks from a node based on a maximum
+disk-usage set in the configuration.
+
+Effect of this is that this node can no longer serve *any* history because
+serving history is set as a boolean on or off using a service bit.
+
+
+### Random pruning mode
+
+There is a large gap between the two current modes of everything
+(currently 75GB) and only what we need (2GB or so).
+
+This mode would have two areas, it would keep a days worth of blocks to
+make sure that any reorgs etc would not cause a re-download, but it would
+have additionally have an area that can be used to store historical data to
+be shared on the network. Maybe 20 or 50GB.
+
+One main feature of Bitcoin is that we have massive replication. Each node
+currently holds all the same data that every other node holds. But this
+doesn't have to be the case with pruned nodes.  A node itself has no need
+for historic data at all.
+
+The suggestion is that a node stores a random set of blocks. Dropping
+random blocks as the node runs out of disk-space.   Additionally, we would
+introduce a new way to download blocks from other nodes which allows the
+node to say it doesn't actually have the block requested.
+
+The effect of this setup is that many different nodes together end up
+having the total amount of blocks, even though each node only has a
+fraction of the total amount.
+
+
+### Transaction-signature pruning
+
+There have been talks before about changing the transaction format itself
+and specifically the way that signatures are stored. A signature is only
+needed at the time that a transaction is validated.
+
+Network nodes that have been turned of for a longer time can choose to only
+download the blocks-headers and transactions so they can fully check them
+and update any wallets.  This means that they can skip downloading of the
+transaction-signatures.
+
+Any node that chooses not to check signatures on transactions while still
+checking the block for proof of work and general correctness would depend
+on the amount of proof-of-work that has gone into creating the whole chain
+to be safe in the assumption that many others have checked those
+transactions for validity.  Naturally, any transactions in blocks less
+than, say, a week old still should be checked. This is purely about
+historic transactions.
+
+
+

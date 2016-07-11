@@ -73,15 +73,12 @@ Toms place
 
 <p><a href="./archives/2016/">Archives</a></p>
 
-<div class="pagecloud">
+<div class='pagecloud'>
 <span class="biggestPC"><a href="./tags/Bitcoin/">Bitcoin</a></span>
-<span class="normalPC"><a href="./tags/Community/">Community</a></span>
-<span class="smallPC"><a href="./tags/Life/">Life</a></span>
+<span class="smallPC"><a href="./tags/Community/">Community</a></span>
+<span class="smallestPC"><a href="./tags/Life/">Life</a></span>
 <span class="normalPC"><a href="./tags/Mining/">Mining</a></span>
 </div>
-
-
-
 
 </aside>
 
@@ -90,14 +87,324 @@ Toms place
 <div id="pagebody">
 
 <section id="content" role="main">
-
-
 <div  class="feedlink">
 
 <a class="feedbutton" type="application/rss+xml" rel="alternate" title="Toms place (RSS feed)" href="index.rss">RSS</a>
 
 
 </div>
+<article class="inlinepage">
+
+<section class="inlineheader">
+<header class="header">
+
+<a href="./posts/Scaling Bitcoin/">Scaling Bitcoin</a>
+
+</header>
+</section>
+
+<section class="inlinecontent">
+<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+
+<p>One of the most talked about topics in 2016 when it comes to Bitcoin is the
+lack of good plan for growing and scaling of the system into the future.</p>
+
+<p>I found this curious as anyone that starts to depend on any system should
+do at least some investigation on what kind of growth it can handle, and
+if it can actually do what we want it to do, this year and 5 years or
+longer into the future.</p>
+
+<p>In this post I want to investigate what kind of scaling we can expect
+Bitcoin to have and what we need to do to get more scaling out of the
+system if it would not be enough.</p>
+
+<h2 id="goals">Goals</h2>
+
+<p>The number one reason that Bitcoin has value right now is its <em>promise</em>
+that Bitcoin will be used and seen as useful by millions of people in the
+not-so-far future.  Any money only has value when enough people think it
+has value.  Any money only has value when it actually can be <em>used</em>. If
+nobody accepts it for payments, the value will not be realized either.</p>
+
+<p>So the number one goal is to allow millions of people to be able to use
+Bitcoin in their day-to-day lives. Where 'use' is defined as making at
+least one transaction a day. As any technology, we don't expect this load
+to be available tomorrow, or this year because growth happens over time and
+systems get build over time.</p>
+
+<p>So lets have a goal of 50 million users sending one transaction a day using
+the Bitcoin network. Not today but 5 year in the future.</p>
+
+<p>Further goal is that for home-users the rate at which they can process
+Bitcoin blocks should be at least twice the speed at which they get
+created.  This means that if a system has no internet for an hour it would
+take no more than half an hour at full speed to catch up.  Faster is
+better, but slower than twice the creation speed is too slow.</p>
+
+<h2 id="baseline">Baseline</h2>
+
+<p><strong>or, what is the current theoretical level of support</strong></p>
+
+<p>Bitcoin, in the form of various node-software implementations, has had
+several years to mature. The leadership was not really focused on growth
+very much of this basic layer as we can see from the amount of progress
+that started happening <em>after</em> Bitcoin Classic and Bitcoin Unlimited
+started competing. As usual, competition is good for the end-user and we
+see some promise of future gains appear.</p>
+
+<p>But lets take a look at what kind of transaction load we could support
+today.</p>
+
+<p>Last week <a href="http://forum.bitcoin.com">forum.bitcoin.com</a> published a
+<a href="https://www.youtube.com/watch?time_continue=45&amp;v=vL8ZRYsLdoY">video</a> about
+time it takes to download, fully validate and check 7 years, or 420000
+blocks of Bitcoin history. From day on of Bitcoin. This is 75GB of data
+which took 6 hours and 50 minutes to fully validate on moderate hardware.
+It wasn't cheap hardware, but it was certainly not top-of-the-line or
+server hardware.  In other words, it is a good baseline.</p>
+
+<p>Taking a closer look at what was done in 6hours 50min</p>
+
+<ul>
+<li>since block
+<a href="https://github.com/bitcoinclassic/bitcoinclassic/blob/1.1/src/chainparams.cpp#L154">295000</a>
+till block 420000 (125000 blocks) each and every transaction signature has
+been validated.</li>
+<li>75GB was downloaded from Bitcoin peers around the world.</li>
+<li>It build a UTXO database of 11 million transactions with 40 million
+not yet spent Bitcoin addresses.  (see the RPC call gettxoutsetinfo).</li>
+<li>The 125000 blocks contained 104847758 <a href="findTxCount.pl">transactions</a> which
+have all been validated.  Thats 105 Million txs.</li>
+</ul>
+
+<p>We understand that this was all done with no tweaks to the settings. This
+was a Classic 1.1.0 node (equivalent to Bitcoin Core 0.12.1)</p>
+
+<h2 id="whatneedswork">What needs work?</h2>
+
+<p>Lets take a look and compare our baseline to our goal. Most people would
+like software to always get faster and better, but priorities matter and we
+should look at which parts need attention first.</p>
+
+<p>Our goal was that individual node needs to process in 24 hours about 50
+million transactions.</p>
+
+<p>We noticed that in the baseline check of 6h50 hours it actually
+downloaded and stored and checked almost 105 million transactions.
+Which leads to a daily rate of 368 million transactions being downloaded and
+validated.</p>
+
+<p>$$ TX_{day} = {{104847758 tx \over { 6 * 60 + 50 minutes}} * 24 * 60 minutes} = 368 million$$</p>
+
+<p>This means that our 5-years-in-the-future goal of 50 million transactions
+per day is already today not an issue for bandwidth and for CPU power. In
+fact, out baseline system managed to go over it with over a factor of 7.</p>
+
+<p>Today our baseline system could handle 7 times the volume that is the goal
+5 years in the future!</p>
+
+<p>Today, an individual Bitcoin node can download, store and validate 368 million
+transactions a day. Thats many times the volume that has <em>ever</em> been sent
+using Bitcoin.</p>
+
+<h2 id="howdoiseethesystemscale">How do I see the system scale?</h2>
+
+<h3 id="atypicalhome-node">A typical home-node</h3>
+
+<p>A node that validates all blocks fully is needed in order to keep
+everyone honest. It also gives me peace of mind in that if I trust my node,
+I don't have to trust anyone else.  So I foresee that you will get small
+communities to gather around full nodes.  You can let your family use it,
+or maybe your football club or church will set one up just to support the
+community.  Individuals will then make their phone-wallets have at least
+one host they trust, which is the one from your community.</p>
+
+<p>This preserves Bitcoins greatest assets, you don't have to trust banks or
+governments. People trusting their local church or football club is much
+more normal and common to do.</p>
+
+<p>Such a node would have no need to keep the full history till block zero. It
+would turn on pruning.  With todays price of hardware this does not mean it
+would stop being able to serve historic blocks because it could easily hold
+a month of blocks history. This does, however, mean we need to make the
+software a bit smarter. See some <a href="./scaling/Pruning/">pruning</a> ideas.</p>
+
+<p>Harddrive space is cheap today. A 3TB harddrive stores 75 years of Bitcoin
+history at current block size.  But what if we start getting to our goal.
+What kind of harddrive do we need?</p>
+
+<p>The answer to that is that we don't need anything large at all. The idea
+that we need to have a larger harddrive because blocks are bigger is a
+misunderstanding. We should work on some <a href="./scaling/Pruning/">pruning</a> ideas
+in order to scale the system without everyone having to invest in storage
+space.</p>
+
+<p>The last of the big components for our hone node is internet connectivity.
+To reach our goal we need to be able to download 50 million transactions at
+about 300 bytes each in a 24 hours period.</p>
+
+<p>$$ {50 000 000 * 300 \over {24 * 60 * 60}} = 173611 bytes/sec $$
+  $$ {173611 \ over 8} = 22 Kbit/sec $$</p>
+
+<p>Ideally we go twice as fast to make sure that the node can 'catch up' if it
+were offline for some time. We may want to add some overhead for other
+parts as well. But 22Kb is below the minimum internet speed that can be
+acquired practically everywhere as the basic plan. 2Mb (100 times faster)
+is practically available in all parts of the world. 2Gb which is 100,000
+times faster than what we need to reach our plan in 5 years is available
+in countries like Japan today.</p>
+
+<p>Home nodes have absolutely nothing to fear from even a huge growth of
+Bitcoin to about 50 million daily users, their hardware and internet will
+cover them with no pains, especially in about 5 years when more software
+optimizations may have been created.</p>
+
+<p>Notice that there is no dependency on things like Moore's law here, no
+hardware growth is needed to reach our goal.</p>
+
+<h2 id="atypicaluser">A typical user</h2>
+
+<p>A typical user is suggested to use a phone or hardware wallet.  The
+actual requirements are really not a lot to be able to make payments safely
+and fast if you use
+<a href="http://bitcoinfactswiki.github.io/Scalability/#Simplified_payment_verification">SPV</a>
+clients.</p>
+
+<p>Current wallets are in need of some work, though. They are typically quite
+greedy in using network to update the state of the wallet. While useful,
+this is not wanted in many situations. When I'm abroad on an expensive
+data-plan, for instance.</p>
+
+<p>There is no need to do any communication with the network before creating a
+transaction that pays a merchant. Only the actual payment itself needs to
+be transferred to the Bitcoin network.</p>
+
+<p>A typical user uses a phone. On the topic of scaling there is little to
+nothing he has to do in order to continue working with on-chain scaling.</p>
+
+<p>Usability and related topics need substantial amounts of work, though.</p>
+
+<h2 id="atypicalminingnode">A typical mining node</h2>
+
+<p>Miners need a full node. Where 'full' means that it validates all
+transactions.  In addition to what a home-node needs, a miner also needs
+a fast connection between miners and to have a fast way to broadcast his
+blocks to other miners.</p>
+
+<p>Just like with a typical home-node the amount of bandwidth and harddrive
+and CPU speed are already today mostly sufficient for being part of the
+network.</p>
+
+<p>Additionally, the miner uses his node to create block templates. Which
+means he takes a section of the pool of unconfirmed transactions and
+creates a block based on that. This process has seen some optimizations
+already, but more could be made.  For instance the getblocktemplate RPC
+call checks the block it just created for validity before it returns it.
+This check takes quite a lot of time and a simple solution would be to
+decouple the returning of the block and the validation so the miner can
+start mining optimistically over the check passing (it should pass in 100%
+of the cases anyway).</p>
+
+<p>The bigger the blocks get, the more data is returned and the system
+currently uses JSON which is almost the worst type of data-container for
+large binary data-blobs.  A simple replacement of the RPC interface with
+something that just changes the communication format to be binary is
+relatively easy to do (a month project, probably) and likely needed for
+miners to not end up waiting to long on this.</p>
+
+<p>In our baseline node we explained that it took 7 hours to fully sync a
+brand new node from zero.  This will stop being the case when we scale up
+to much bigger sizes.  It will start taking a substantial amount of time to
+do the initial sync.  Yet, a miner requires a fully synced node.
+Bitcoin Classic already has one big change there that will push down the
+validation time substantially. It introduced dynamic checkpoints which
+allow the node to skip validation of transaction data by assuming that
+about a week worth of blocks will not be build on top of double-spend data.
+This would remove the validation of 100s of millions of transactions for a
+starting node.</p>
+
+<p>Another suggestion for future Bitcoin clients meant for miners is that a
+new node can be pointed to a known and trusted node.  The new node would
+then receive the UTXO and all other details it needs to be up and running
+quickly from this trusted node.  Which means that after downloading only a
+couple of gigabytes you can have your new node up in 10 minutes.</p>
+
+<p>The most important improvements for mining are various ways to ensure fast
+download and upload of the actual new blocks.</p>
+
+<p>First there is xthin, which is a way to make a 1MB block only cost 25KB to
+send to all miners.  This scaling is linear in that a 10MB block will
+likely be around 250KB to send.</p>
+
+<p>Next to that is a technique I called "optimistic mining" which helps miners
+by splitting the uploading of blocks into two parts. One is a super fast
+notification of the new block. Just the block-header. A miner receiving
+such a header validates it has valid proof of work and then can start
+mining empty blocks on top.  When the full block has arrived and all
+transactions are seen. All transactions in the mempool are updated to
+account for the new block, and last, a new block template is created with
+as many transactions as fit, only then does the miner start mining it.</p>
+
+<p>A mining node has no need for either a <a href="../On%20Mining%20and%20Wallets">wallet in their
+node</a> or to have a history of blocks on their
+node, so they can turn on <a href="./scaling/Pruning/">pruning</a>.</p>
+
+<p>Many of these techniques are already in development or planned to be
+developed in the next year or so.  In order to reach our 50 million users
+per day in 5 years most of these will be more than enough to make a miner
+able to keep connected to the Bitcoin network without having to invest in a
+high-end server for the Bitcoin node.</p>
+
+<h2 id="conclusions">Conclusions</h2>
+
+<p>The goal I tried to argue from is 50 million users per day. This goal is
+a huge increase from today. But to make sure we do it properly, my goal is
+set 5 years in the future.</p>
+
+<p>Scaling Bitcoin-nodes is ultimately boring work with very little effort
+needed because it turns out that a modern simple system can already scale
+easy 10000 times higher than the current maximum allowed size.</p>
+
+<p>Scaling the entire system takes a little more work, but mostly because
+miners have not received a lot of new features that they would need in
+order to make scaling safe for them.  Most of those features could be added
+in a matter of months, with technologies like xthin blocks and optimistic
+mining already well underway.</p>
+
+<p>The conclusion that I have to draw is that the goal of 50M/day is not just
+reachable, the timeline of 5 years is likely one that we will beat quite
+easily.</p>
+
+<p>Smart tricks like Lightning network are not mentioned at all in this
+document because there is no need for them. Bitcoin can scale on-chain
+quite easily with almost no risk. Ideas like Lightning are quite high risk
+because there are so many unknowns.</p>
+
+<p>By far the biggest problem with regards to scaling today is the protocol
+limit of 1MB block size.  This should be removed as soon as possible.</p>
+
+</section>
+
+<footer class="inlinefooter">
+<span class="readMore">
+
+<a href="./posts/Scaling Bitcoin/">Read full...</a>
+
+</span>
+<span class="pagedate">Posted <time datetime="2016-07-11T11:22:31Z" pubdate="pubdate">Mon 11 Jul 2016 11:22:31 AM Europe</time></span>
+
+
+<nav class="tags">
+Tags:
+
+<a href="./tags/Bitcoin/" rel="tag">Bitcoin</a>
+
+<a href="./tags/Mining/" rel="tag">Mining</a>
+
+</nav>
+
+</footer>
+</article>
 <article class="inlinepage">
 
 <section class="inlineheader">
@@ -119,7 +426,7 @@ various reasons. Not the least of them being time-zone differences.</p>
 <p>When my talk went onto YouTube I decided to put up a transcript here.
 The actual talk can be found on <a href="https://youtu.be/TCj84RKdjTs">youtube</a>.</p>
 
-<h2>Transcript</h2>
+<h2 id="transcript">Transcript</h2>
 
 <p>About 10 years ago I worked at Trolltech, a small Norwegian company making
 tools for developers to build beautiful applications. I worked there for
@@ -160,7 +467,6 @@ exciting ways to do things better.</p></li>
 networking protocols work faster and more reliably as a simple example.</p></li>
 </ul>
 
-
 <p>This conference presents various "optimization-level" changes that will make
 Bitcoin scale much better than it does now. With very little pain, and from
 experience I expect quite a big gain.
@@ -180,7 +486,7 @@ as well.</p>
 <p>This makes sense off-course, when you think about it, you need the
 foundation to be strong when building on top of it.</p>
 
-<h2>Bitcoin, in a nutshell</h2>
+<h2 id="bitcoininanutshell">Bitcoin, in a nutshell</h2>
 
 <p>Now, enough with the high level talk, lets see some actual ideas.</p>
 
@@ -269,7 +575,7 @@ Not optimally, but it works.</p>
 that, though, and the
 current way that Bitcoin works leaves a lot of space for improvement.</p>
 
-<h2>How does this work for miners?</h2>
+<h2 id="howdoesthisworkforminers">How does this work for miners?</h2>
 
 <p><a href="./images/presentation-onchain5.png"><img src="./posts/Innovation - OnlineScaling/400x325-presentation-onchain5.png" width="400" height="325" class="float-right" /></a></p>
 
@@ -350,7 +656,7 @@ substantial benefit, though. But I'm just that kind of geek.
 These changes do help a lot when you add many of them together and
 end up with a massively better scaling system than what we have today.</p>
 
-<h2>What to work on next</h2>
+<h2 id="whattoworkonnext">What to work on next</h2>
 
 <p>If we look at what it means to scale Bitcoin today we look at all the
 obvious resources that any computer program needs. Most of them are really
@@ -374,7 +680,7 @@ their business.</p>
 Think about a system that students typically set up in class during
 computer science as a play thing. Its making all the traditional mistakes.</p>
 
-<h2>Further research</h2>
+<h2 id="furtherresearch">Further research</h2>
 
 <p>The Bitcoin network uses unlabeled binary blobs to send over the wire. This
 implies that developers can never fix a message because old clients would
@@ -431,7 +737,7 @@ send messages through the entire system as fast as possible. But this lack of
 competition just means its going to be a nice challenge to find what works
 and what doesn't.</p>
 
-<h2>Some other details</h2>
+<h2 id="someotherdetails">Some other details</h2>
 
 <p>We have some work done that fixes the problem that while downloading and
 validating a block that node can't relay transactions.</p>
@@ -537,7 +843,7 @@ work on quality assurance policies and practices.  And I'm happy to say that
 we have reached at least industry standard, if not a little above. But I
 haste to say that there is still room for improvement.</p>
 
-<h2>Git workflow</h2>
+<h2 id="gitworkflow">Git workflow</h2>
 
 <p>The first thing that I changed is that we now have a proper git workflow.
 This means that developers fix bugs on the stable branch and we use git
@@ -548,7 +854,7 @@ and that way we can't lose work or introduce bugs by doing it manually.
 See also our <a href="https://github.com/bitcoinclassic/bitcoinclassic/blob/develop/CONTRIBUTING.md">contributing
 document</a>.</p>
 
-<h2>Release process</h2>
+<h2 id="releaseprocess">Release process</h2>
 
 <p>The second part that changed is the release process itself.
 Based on the fact that we now have a stable branch that is always
@@ -561,14 +867,15 @@ source software as well as for many closed source products.</p>
 
 <p>Let me quote the core concept;</p>
 
-<blockquote><p>Given a version number MAJOR.MINOR.PATCH, increment the:</p>
-
-<ol>
-<li>MAJOR version when you make incompatible API changes,</li>
-<li>MINOR version when you add functionality in a backwards-compatible
-manner, and</li>
-<li>PATCH version when you make backwards-compatible bug fixes.</li>
-</ol>
+<blockquote>
+  <p>Given a version number MAJOR.MINOR.PATCH, increment the:</p>
+  
+  <ol>
+  <li>MAJOR version when you make incompatible API changes,</li>
+  <li>MINOR version when you add functionality in a backwards-compatible
+  manner, and</li>
+  <li>PATCH version when you make backwards-compatible bug fixes.</li>
+  </ol>
 </blockquote>
 
 <p>Additionally I wrote this in the release tag of v1.1.0</p>
@@ -578,11 +885,11 @@ core-values and push out hundreds of lines of new code in a bugfix release
 which feels dirty to have to inherit.  The result of that is that the CSV
 soft fork code feature release has received a bigger version bump.  And
 when that disconnect between Core and Classic versions it also stopped
-making sense to stay close to versioning of Core.<br />
+making sense to stay close to versioning of Core. <br />
 It was time to review the numbering scheme altogether.</p>
 
 <p>When I talked about the "less than 1.0" versioning over beers with
-<a href="https://en.wikipedia.org/wiki/Eric%5FS%2E%5FRaymond">Eric S. Raymond</a> (author of <a href="https://en.wikipedia.org/wiki/The%5FCathedral%5Fand%5Fthe%5FBazaar">The Cathedral and the Bazaar</a>) he explained it like this:<br />
+<a href="https://en.wikipedia.org/wiki/Eric%5FS%2E%5FRaymond">Eric S. Raymond</a> (author of <a href="https://en.wikipedia.org/wiki/The%5FCathedral%5Fand%5Fthe%5FBazaar">The Cathedral and the Bazaar</a>) he explained it like this: <br />
 The idea was that when the app reaches the set of features required
 for the user with the lowest demands to use it for its intended usage,
 that's when you call it 1.0.</p>
@@ -590,7 +897,7 @@ that's when you call it 1.0.</p>
 <p>Bottom line, Bitcoin is certainly far past its 1.0 release. We will follow
 the Semantic Versioning from now on.</p>
 
-<h2>Continues Integration building</h2>
+<h2 id="continuesintegrationbuilding">Continues Integration building</h2>
 
 <p>What I was really missing was a proper <a href="https://en.wikipedia.org/wiki/Continuous%5Fintegration">Continuous integration</a> (CI) system. Naturally, there is the freely
 available Travis.  But thats been a frustrating experience and really not
@@ -625,7 +932,6 @@ minimum effort.</li>
 <li>It tests the Debian contrib to actually build properly.</li>
 </ol>
 
-
 <p>As I mentioned, the server is in a secure location. What that means is that
 it is not connected to the internet and physically protected to make sure
 we can trust the output of that server.  When we ship sources anyone can
@@ -634,7 +940,7 @@ check quickly if they are unaltered from the tags in git. But with binaries
 releases unless I know they actually came from the exact sources that are
 in git, visible for all.</p>
 
-<h2>Ongoing work</h2>
+<h2 id="ongoingwork">Ongoing work</h2>
 
 <p>There is plenty of issues that could use improvements.  It turns out that
 the original developers don't really like writing unit tests and the code
@@ -655,7 +961,7 @@ simple runner. With the added benefit that you can run various in parallel
 a benchmark is that code which is time critical can be tested in there and
 the output can be printed and plotted over a long time (months) to see that
 such time critical code doesn't get slower by unintended changes from
-release to release.<br />
+release to release. <br />
 I find it hard to believe that Bitcoin has no time critical code, as such
 we should be able to find value to locate, test and keep code from getting
 slower.</p>
@@ -678,7 +984,7 @@ better supported.</p>
 launchpad. This may be something to expand upon and support more Linux
 distros in a similar fashion.</p>
 
-<h2>Conclusion</h2>
+<h2 id="conclusion">Conclusion</h2>
 
 <p>Bitcoin Classic has a strong Quality Assurance policy, adopts long time
 industry standard practices and sheds unsafe self-invented ones from
@@ -721,7 +1027,7 @@ Tags:
 </section>
 
 <section class="inlinecontent">
-<h3>Don't leave your money on the street.</h3>
+<h3 id="dontleaveyourmoneyonthestreet.">Don't leave your money on the street.</h3>
 
 <p>Bitcoind is labelled as the backend of the network. When I explain this to
 friends I explain it like its the router that you have stuffed behind the
@@ -772,7 +1078,7 @@ practice of storing bitcoin private keys (and the money they represent) on
 a piece of equipment that really is meant to be like a router or a hub
 connecting your business to the Bitcoin network.</p>
 
-<h3>Stop demanding a wallet in a mining node</h3>
+<h3 id="stopdemandingawalletinaminingnode">Stop demanding a wallet in a mining node</h3>
 
 <p>In Bitcoin Classic's development branch we have changed the
 system to allow mining on a node that does not have a wallet compiled in.</p>
@@ -788,7 +1094,6 @@ something like this;</p>
   "private": "KyjwYTJrhAS14fV7fP16Z9bhiudpPcSTT5HpPgpoampS57zgT59w"
 }
 </pre>
-
 
 <p>The private key is the one piece of information needed to later spent the
 money that would be stored on the address. To benefit from this change the
@@ -862,7 +1167,6 @@ Tags:
 </br><i>Confusing translation. By <a href="https://www.flickr.com/photos/dandownunder/220926841/">dandownunder</a></i>
 </div>
 
-
 <p>I have been a software developer for various decades and in that time the
 way that I start a new job or a new task is similar.  It is one of
 learning. When I started in a company that creates medical hardware I ended
@@ -876,7 +1180,7 @@ mean you have anything interesting to write.  You need to learn.</p>
 something completely different on a regular basis.</p>
 
 <p>Learning about Bitcoin was surprising difficult. I've been learning for
-almost 4 years and I am certain I will continue for many more.<br />
+almost 4 years and I am certain I will continue for many more. <br />
 I would have to say that from all the industries that I studied, learning
 about Bitcoin details has been the hardest.</p>
 
@@ -888,7 +1192,7 @@ details about Bitcoin.</p>
 <p>The following scenario would happen on a regular basis: A couple of random
 people on the internet are in a discussion about some detail. For instance
 they talk about the claim that miners would never willingly break the
-Bitcoin consensus rules.<br />
+Bitcoin consensus rules. <br />
 After some time an expert comes in and resolves the conflict by stating
 some fact.  In our example, he could say that after the 2012 halving there
 were various miners for some hours that continued to mine blocks with 50BTC
@@ -922,15 +1226,16 @@ facts.  In the current world it is impossible to differentiate fact from
 opinion because we can't independently validate those facts.</p></li>
 </ul>
 
-
 <p><em>I have become convinced that the first big step we need to make to create
 a more healthy Bitcoin ecosystem is to make access to currently well hidden
 facts completely open for anyone to access and contribute to.</em></p>
 
 <p>Wikimedia <a href="https://wikimediafoundation.org/wiki/Vision">writes</a>;</p>
 
-<blockquote><p>Imagine a world in which every single human being can freely share in the
-sum of all knowledge.</p></blockquote>
+<blockquote>
+  <p>Imagine a world in which every single human being can freely share in the
+  sum of all knowledge.</p>
+</blockquote>
 
 <p>I think that goal is inspiration that Bitcoin could use very well.  I would
 like to see a Free Wikipedia for Bitcoin technology.</p>
@@ -950,9 +1255,9 @@ is the death to cooperation.</p>
 <p>The secondary goal, then, should be to create documentation that can not
 be censored or controlled.</p>
 
-<h3>BitcoinWiki.git</h3>
+<h3 id="bitcoinwiki.git">BitcoinWiki.git</h3>
 
-<h4>Part of the solution; git.</h4>
+<h4 id="partofthesolutiongit.">Part of the solution; git.</h4>
 
 <p>Git is a tool used for many years by enthusiasts and professionals alike to
 create a distributed
@@ -963,11 +1268,11 @@ permission. It also removes the central ownership. No longer is it needed
 to convince one group of the worth of your changes, there may be various
 groups each creating what they think is the best version.</p>
 
-<h4>Lowering the threshold of entry.</h4>
+<h4 id="loweringthethresholdofentry.">Lowering the threshold of entry.</h4>
 
 <p>While git allows the actual required working together, it is just a basic
 layer. Many end users don't want to use git, and that should be perfectly
-Ok.<br />
+Ok. <br />
 Much like Wikipedia allows a user to do everything from a web browser, we
 need a way to do the same in order to not scare off people that could
 really contribute but don't have the technical knowledge to install and use
@@ -980,7 +1285,7 @@ What one person changes on the website can be merged with what another
 person makes at another time. Even when those people use a different
 website or a different team to do the work in.</p>
 
-<h3>Starting the revolution.</h3>
+<h3 id="startingtherevolution.">Starting the revolution.</h3>
 
 <p>To start somewhere I present a website that has all the content (including
 all revisions back until its start in 2010) copied from what has so far
@@ -1008,7 +1313,7 @@ there are quite a lot of flaws in the actual content.</p>
 over to the git repository. I would suspect that most of them are in fact
 irrelevant. Some closer inspection is needed.</p>
 
-<h4>Be part of the solution, please help</h4>
+<h4 id="bepartofthesolutionpleasehelp">Be part of the solution, please help</h4>
 
 <p>In my own humble opinion the goal of the old wiki is wrong, it highlighted
 all companies in the space which included all gambling sites and places
@@ -1113,9 +1418,6 @@ Tags:
 
 </footer>
 </article>
-
-
-
 
 
 </section>
