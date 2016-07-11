@@ -139,13 +139,12 @@ To reach our goal we need to be able to download 50 million transactions at
 about 300 bytes each in a 24 hours period.
 
   $$ {50 000 000 * 300 \over {24 * 60 * 60}} = 173611 bytes/sec $$
-  $$ {173611 \over 8} = 22 Kbit/sec $$
+  $$ {173611 * 8} = 1.39 Mbit/sec $$
 
 Ideally we go twice as fast to make sure that the node can 'catch up' if it
 were offline for some time. We may want to add some overhead for other
-parts as well. But 22Kb is below the minimum internet speed that can be
-acquired practically everywhere as the basic plan. 2Mb (100 times faster)
-is practically available in all parts of the world. 2Gb which is 100,000
+parts as well. But 1.39Mbit is available practically everywhere.
+2Gb which is 1440
 times faster than what we need to reach our plan in 5 years is available
 in countries like Japan today.
 
