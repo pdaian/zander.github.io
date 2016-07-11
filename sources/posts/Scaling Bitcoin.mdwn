@@ -1,105 +1,106 @@
 <script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 One of the most talked about topics in 2016 when it comes to Bitcoin is the
-lack of good plan for growing and scaling of the system into the future.
+lack of a good plan for growing and scaling the system into the future.
 
-I found this curious as anyone that starts to depend on any system should
-do at least some investigation on what kind of growth it can handle, and
-if it can actually do what we want it to do, this year and 5 years or
+I find this curious, as anyone that starts to depend on any system should
+do at least some investigation on what kind of growth it can handle and
+whether it can actually do what we want it to, this year and 5 years or
 longer into the future.
 
 In this post I want to investigate what kind of scaling we can expect
 Bitcoin to have and what we need to do to get more scaling out of the
-system if it would not be enough.
+system if these expectations prove not to be enough.
 
 ## Goals
 
 The number one reason that Bitcoin has value right now is its *promise*
 that Bitcoin will be used and seen as useful by millions of people in the
-not-so-far future.  Any money only has value when enough people think it
-has value.  Any money only has value when it actually can be *used*. If
-nobody accepts it for payments, the value will not be realized either.
+not-so-far future.  Any money only has value when enough people assign it
+value.  Any money only has value when it can actually be *used*. If
+nobody accepts it for payments, the value will not be realized.
 
 So the number one goal is to allow millions of people to be able to use
-Bitcoin in their day-to-day lives. Where 'use' is defined as making at
-least one transaction a day. As any technology, we don't expect this load
-to be available tomorrow, or this year because growth happens over time and
-systems get build over time.
+Bitcoin in their day-to-day lives, where 'use' is defined as making at
+least one transaction a day. As with any technology, we don't expect this load
+to be available tomorrow or even this year, as growth happens over time and
+systems get built over time.
 
-So lets have a goal of 50 million users sending one transaction a day using
-the Bitcoin network. Not today but 5 year in the future.
+So let's have a goal of 50 million users sending one transaction a day using
+the Bitcoin network. Not today but 5 years into the future.
 
-Further goal is that for home-users the rate at which they can process
+A further goal for home-users is that the rate at which they can process
 Bitcoin blocks should be at least twice the speed at which they get
 created.  This means that if a system has no internet for an hour it would
-take no more than half an hour at full speed to catch up.  Faster is
-better, but slower than twice the creation speed is too slow.
+take around an hour at full speed to catch up (process the backlog
+and process all new transactions generated while processing the backlog).  
+Faster is better, but slower than twice the creation speed is too slow.
 
 
 ## Baseline
 
-**or, what is the current theoretical level of support**
+**Or, what is the current theoretical level of support?**
 
 Bitcoin, in the form of various node-software implementations, has had
-several years to mature. The leadership was not really focused on growth
-very much of this basic layer as we can see from the amount of progress
+several years to mature. The leadership was not really focused on large 
+growth of this basic layer, as we can see from the uptick in progress
 that started happening *after* Bitcoin Classic and Bitcoin Unlimited
 started competing. As usual, competition is good for the end-user and we
 see some promise of future gains appear.
 
-But lets take a look at what kind of transaction load we could support
+But let's take a look at what kind of transaction load we could support
 today.
 
 Last week [forum.bitcoin.com](http://forum.bitcoin.com) published a
 [video](https://www.youtube.com/watch?time_continue=45&v=vL8ZRYsLdoY) about
 time it takes to download, fully validate and check 7 years, or 420000
-blocks of Bitcoin history. From day on of Bitcoin. This is 75GB of data
-which took 6 hours and 50 minutes to fully validate on moderate hardware.
+blocks of Bitcoin history (from day one of Bitcoin). This is 75GB of data
+which took 6 hours and 50 minutes to fully validate on mid-range hardware.
 It wasn't cheap hardware, but it was certainly not top-of-the-line or
 server hardware.  In other words, it is a good baseline.
 
-Taking a closer look at what was done in 6hours 50min
+Taking a closer look at what was done in 6hours 50min:
 
 * since block
   [295000](https://github.com/bitcoinclassic/bitcoinclassic/blob/1.1/src/chainparams.cpp#L154)
   till block 420000 (125000 blocks) each and every transaction signature has
   been validated.
 * 75GB was downloaded from Bitcoin peers around the world.
-* It build a UTXO database of 11 million transactions with 40 million
-  not yet spent Bitcoin addresses.  (see the RPC call gettxoutsetinfo).
+* A UTXO database of 11 million transactions with 40 million
+  not yet spent Bitcoin addresses was built.  (see the RPC call gettxoutsetinfo).
 * The 125000 blocks contained 104847758 [transactions](findTxCount.pl) which
-  have all been validated.  Thats 105 Million txs.
+  were all validated.  That's 105 Million txs.
 
 
 We understand that this was all done with no tweaks to the settings. This
-was a Classic 1.1.0 node (equivalent to Bitcoin Core 0.12.1)
+was a Classic 1.1.0 node (with performance equivalent to Bitcoin Core 0.12.1)
 
 
 ## What needs work?
 
-Lets take a look and compare our baseline to our goal. Most people would
+Let's take a look and compare our baseline to our goal. Most people would
 like software to always get faster and better, but priorities matter and we
 should look at which parts need attention first.
 
-Our goal was that individual node needs to process in 24 hours about 50
-million transactions.
+Our goal was that individual nodes need to be able to process about 50
+million transactions in 24 hours.
 
-We noticed that in the baseline check of 6h50 hours it actually
-downloaded and stored and checked almost 105 million transactions.
-Which leads to a daily rate of 368 million transactions being downloaded and
+We noticed that in the baseline check of 6h50m, our node actually
+downloaded, stored, and checked almost 105 million transactions.
+This leads to a daily rate of 368 million transactions being downloaded and
 validated.
 
   $$ TX\_{day} = {{104847758 tx \over { 6 * 60 + 50 minutes}} * 24 * 60 minutes} = 368 million$$
 
 This means that our 5-years-in-the-future goal of 50 million transactions
-per day is already today not an issue for bandwidth and for CPU power. In
-fact, out baseline system managed to go over it with over a factor of 7.
+per day is already not an issue for bandwidth and for CPU power today. In
+fact, our baseline system managed to exceed our goal by a factor of 7.
 
-Today our baseline system could handle 7 times the volume that is the goal
-5 years in the future!
+Our baseline system could handle 7 times our 5 years in the future goal
+volume today!
 
 Today, an individual Bitcoin node can download, store and validate 368 million
-transactions a day. Thats many times the volume that has *ever* been sent
+transactions a day. That's many times the volume that has *ever* been sent
 using Bitcoin.
 
 ## How do I see the system scale?
@@ -107,9 +108,9 @@ using Bitcoin.
 ### A typical home-node
 
 A node that validates all blocks fully is needed in order to keep
-everyone honest. It also gives me peace of mind in that if I trust my node,
+everyone honest. It also gives me the peace of mind that if I trust my node,
 I don't have to trust anyone else.  So I foresee that you will get small
-communities to gather around full nodes.  You can let your family use it,
+communities gathering around full nodes.  You can let your family use it,
 or maybe your football club or church will set one up just to support the
 community.  Individuals will then make their phone-wallets have at least
 one host they trust, which is the one from your community.
@@ -118,25 +119,25 @@ This preserves Bitcoins greatest assets, you don't have to trust banks or
 governments. People trusting their local church or football club is much
 more normal and common to do.
 
-Such a node would have no need to keep the full history till block zero. It
-would turn on pruning.  With todays price of hardware this does not mean it
-would stop being able to serve historic blocks because it could easily hold
+Such a node would have no need to keep the full history from block zero. It
+would turn on pruning.  With today's price of hardware this does not mean it
+would stop being able to serve historic blocks, because it could easily hold
 a month of blocks history. This does, however, mean we need to make the
 software a bit smarter. See some [[pruning|scaling/Pruning]] ideas.
 
-Harddrive space is cheap today. A 3TB harddrive stores 75 years of Bitcoin
+Hard drive space is cheap today. A 3TB harddrive stores 75 years of Bitcoin
 history at current block size.  But what if we start getting to our goal.
-What kind of harddrive do we need?
+What kind of hard drive do we need?
 
 The answer to that is that we don't need anything large at all. The idea
-that we need to have a larger harddrive because blocks are bigger is a
+that we need to have a larger hard drive because blocks are bigger is a
 misunderstanding. We should work on some [[pruning|scaling/Pruning]] ideas
 in order to scale the system without everyone having to invest in storage
 space.
 
-The last of the big components for our hone node is internet connectivity.
+The last of the big components for our hone node is Internet connectivity.
 To reach our goal we need to be able to download 50 million transactions at
-about 300 bytes each in a 24 hours period.
+about 300 bytes each over a 24 hours period.
 
   $$ {50 000 000 * 300 \over {24 * 60 * 60}} = 173611 bytes/sec $$
   $$ {173611 * 8} = 1.39 Mbit/sec $$
@@ -149,25 +150,25 @@ times faster than what we need to reach our plan in 5 years is available
 in countries like Japan today.
 
 Home nodes have absolutely nothing to fear from even a huge growth of
-Bitcoin to about 50 million daily users, their hardware and internet will
+Bitcoin to about 50 million daily users. Their hardware and internet will
 cover them with no pains, especially in about 5 years when more software
 optimizations may have been created.
 
-Notice that there is no dependency on things like Moore's law here, no
+Notice that there is no dependency on principles like Moore's law here, no
 hardware growth is needed to reach our goal.
 
 
 ## A typical user
 
 A typical user is suggested to use a phone or hardware wallet.  The
-actual requirements are really not a lot to be able to make payments safely
+actual requirements are really low to be able to make payments safely,
 and fast if you use
 [SPV](http://bitcoinfactswiki.github.io/Scalability/#Simplified_payment_verification)
 clients.
 
 Current wallets are in need of some work, though. They are typically quite
 greedy in using network to update the state of the wallet. While useful,
-this is not wanted in many situations. When I'm abroad on an expensive
+this is not wanted in many situations: when I'm abroad on an expensive
 data-plan, for instance.
 
 There is no need to do any communication with the network before creating a
@@ -175,9 +176,10 @@ transaction that pays a merchant. Only the actual payment itself needs to
 be transferred to the Bitcoin network.
 
 A typical user uses a phone. On the topic of scaling there is little to
-nothing he has to do in order to continue working with on-chain scaling.
+nothing they must do in order to continue working with on-chain scaling.
 
-Usability and related topics need substantial amounts of work, though.
+Usability and related topics in thin clients do need substantial amounts of work
+though.
 
 
 ## A typical mining node
@@ -191,8 +193,8 @@ Just like with a typical home-node the amount of bandwidth and harddrive
 and CPU speed are already today mostly sufficient for being part of the
 network.
 
-Additionally, the miner uses his node to create block templates. Which
-means he takes a section of the pool of unconfirmed transactions and
+Additionally, a miner uses their node to create block templates. Which
+means they takes a section of the pool of unconfirmed transactions and
 creates a block based on that. This process has seen some optimizations
 already, but more could be made.  For instance the getblocktemplate RPC
 call checks the block it just created for validity before it returns it.
@@ -201,12 +203,12 @@ decouple the returning of the block and the validation so the miner can
 start mining optimistically over the check passing (it should pass in 100%
 of the cases anyway).
 
-The bigger the blocks get, the more data is returned and the system
+The bigger the blocks get, the more data is returned, and the system
 currently uses JSON which is almost the worst type of data-container for
 large binary data-blobs.  A simple replacement of the RPC interface with
 something that just changes the communication format to be binary is
 relatively easy to do (a month project, probably) and likely needed for
-miners to not end up waiting to long on this.
+miners to not end up waiting too long on interface delays.
 
 In our baseline node we explained that it took 7 hours to fully sync a
 brand new node from zero.  This will stop being the case when we scale up
@@ -215,7 +217,7 @@ do the initial sync.  Yet, a miner requires a fully synced node.
 Bitcoin Classic already has one big change there that will push down the
 validation time substantially. It introduced dynamic checkpoints which
 allow the node to skip validation of transaction data by assuming that
-about a week worth of blocks will not be build on top of double-spend data.
+about a week's worth of blocks will not be built on top of double-spend data.
 This would remove the validation of 100s of millions of transactions for a
 starting node.
 
@@ -233,7 +235,7 @@ First there is xthin, which is a way to make a 1MB block only cost 25KB to
 send to all miners.  This scaling is linear in that a 10MB block will
 likely be around 250KB to send.
 
-Next to that is a technique I called "optimistic mining" which helps miners
+Next to that is a technique I called "optimistic mining", which helps miners
 by splitting the uploading of blocks into two parts. One is a super fast
 notification of the new block. Just the block-header. A miner receiving
 such a header validates it has valid proof of work and then can start
@@ -260,9 +262,9 @@ The goal I tried to argue from is 50 million users per day. This goal is
 a huge increase from today. But to make sure we do it properly, my goal is
 set 5 years in the future.
 
-Scaling Bitcoin-nodes is ultimately boring work with very little effort
+Scaling Bitcoin nodes is ultimately boring work with very little effort
 needed because it turns out that a modern simple system can already scale
-easy 10000 times higher than the current maximum allowed size.
+easily to 10000 times higher than the current maximum allowed size.
 
 Scaling the entire system takes a little more work, but mostly because
 miners have not received a lot of new features that they would need in
